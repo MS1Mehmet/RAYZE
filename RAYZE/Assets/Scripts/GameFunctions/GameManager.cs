@@ -152,8 +152,8 @@ public class GameManager : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
-            player.GetComponent<PlayerController>().FreezeInput(freeze);
-            player.GetComponent<PlayerController>().FreezePlayer(freeze);
+            //player.GetComponent<PlayerController>().FreezeInput(freeze);
+           // player.GetComponent<PlayerController>().FreezePlayer(freeze);
 
         }
 
@@ -182,7 +182,7 @@ public class GameManager : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
-            player.GetComponent<PlayerController>().Teleport(teleport);
+            //player.GetComponent<PlayerController>().Teleport(teleport);
         }
     }
 
