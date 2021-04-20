@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,10 @@ public class BulletScript : MonoBehaviour
     float destroyTime;
    // public float destroyTime;
     bool freezeBullet;
+
+    public float coolDown = 10.0f;
+    float waitTime = 0.0f;
+    bool coolDownActive = false;
 
     RigidbodyConstraints2D rb2dConstraints;
     public int damage = 1; //Schaden
@@ -36,6 +41,18 @@ public class BulletScript : MonoBehaviour
             Destroy(gameObject,2.0f);  //Der Schuss wird nach einer Zeit zerstört
         }
 
+        if (coolDownActive)
+        {
+            waitTime *= Time.deltaTime;
+        }
+
+        if (waitTime > coolDown)
+        {
+            Debug.Log(waitTime);
+            waitTime = 0.0f;
+            Debug.Log(waitTime);
+            coolDownActive = false;
+        }
     }
 
     public void SetBulletSpeed(float speed)
@@ -60,9 +77,13 @@ public class BulletScript : MonoBehaviour
 
     public void Shoot()
     {
-        sprite.flipX = (bulletDirection.x < 0);     // Den Sprite Flippen, wenn wir nach rechts oder links schießen
-        rb2d.velocity = bulletDirection * bulletSpeed;
-       // destroyTime = destroayDelay;
+        if (coolDownActive == false)
+        {
+            sprite.flipX = (bulletDirection.x < 0);     // Den Sprite Flippen, wenn wir nach rechts oder links schießen
+            rb2d.velocity = bulletDirection * bulletSpeed;
+            coolDownActive = true;
+            // destroyTime = destroayDelay;
+        }
     }
 
     public void FreezeBullet(bool freeze)

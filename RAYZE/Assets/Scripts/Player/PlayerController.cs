@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Schema;
 using UnityEngine;
 
 //  Code kopiert und modifiziert von Tony Bhimani, Link verfügbar unter: https://www.youtube.com/user/TonyBhimani“
@@ -223,17 +224,13 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    // Schießfunktion
     void PlayerShootInput()
     {
         if (!freezeInput)
         {
             keyShoot = Input.GetKey(KeyCode.Mouse0);
-
         }
-
-      
-    
-
 
         float shootTimeLenght = 0f;
         float keyShootReleaseTimeLenght = 0f;
@@ -405,9 +402,6 @@ public class PlayerController : MonoBehaviour
         bullet.GetComponent<BulletScript>().SetBulletDirection((isFacingRight) ? Vector2.right : Vector2.left);
         bullet.GetComponent<BulletScript>().SetDestroyDelay(5f);
         bullet.GetComponent<BulletScript>().Shoot();
-
-
-
      }
 
     public void HitSide(bool rightSide)
