@@ -39,6 +39,8 @@ public class PlayerGroundedState : PlayerState
             player.InputHandler.UseJumpInput();
             stateMachine.ChangeState(player.JumpState);
         }
+
+     
     }
 
     public override void PhysicsUpdate()

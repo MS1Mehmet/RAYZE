@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAfterImageSprite : MonoBehaviour
+public class AfterImage : MonoBehaviour
 {
     [SerializeField]
     private float activeTime = 0.1f;
@@ -15,19 +15,19 @@ public class PlayerAfterImageSprite : MonoBehaviour
 
     private Transform player;
 
-    private SpriteRenderer SR;
+    private SpriteRenderer sr;
     private SpriteRenderer playerSR;
 
     private Color color;
 
     private void OnEnable()
     {
-        SR = GetComponent<SpriteRenderer>();
+        sr = GetComponent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         playerSR = player.GetComponent<SpriteRenderer>();
 
         alpha = alphaSet;
-        SR.sprite = playerSR.sprite;
+        sr.sprite = playerSR.sprite;
         transform.position = player.position;
         transform.rotation = player.rotation;
         timeActivated = Time.time;
@@ -37,12 +37,11 @@ public class PlayerAfterImageSprite : MonoBehaviour
     {
         alpha *= alphaMultiplier;
         color = new Color(1f, 1f, 1f, alpha);
-        SR.color = color;
-
+        sr.color = color;
 
         if(Time.time >= (timeActivated + activeTime))
         {
-            PlayerAfterImagePool.Instance.AddtoPool(gameObject);
+            PlayerAfterImagePool.Instance.AddToPool(gameObject);
         }
     }
 }

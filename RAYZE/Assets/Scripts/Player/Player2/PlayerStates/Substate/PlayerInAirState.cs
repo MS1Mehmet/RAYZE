@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PlayerInAirState : PlayerState
 {
-    private bool isGrounded;
+    
     private int xInput;
+    private bool isGrounded;
+    
 
     public PlayerInAirState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
@@ -33,6 +35,7 @@ public class PlayerInAirState : PlayerState
         base.LogicUpdate();
 
         xInput = player.InputHandler.NormInputX;
+        
 
         if(isGrounded && player.CurrentVelocity.y < 0.01f)
         {
@@ -42,9 +45,6 @@ public class PlayerInAirState : PlayerState
         {
             player.ChefIfShouldFlip(xInput);
             player.SetVelocityX(playerData.movementVelocity * xInput);
-
-            player.Anim.SetFloat("yVelocity", player.CurrentVelocity.y);
-            player.Anim.SetFloat("xVelocity", Mathf.Abs(player.CurrentVelocity.x));
         }
     }
 
@@ -52,4 +52,6 @@ public class PlayerInAirState : PlayerState
     {
         base.PhysicsUpdate();
     }
+
+    
 }

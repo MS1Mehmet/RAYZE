@@ -7,7 +7,7 @@ public class PlayerAfterImagePool : MonoBehaviour
     [SerializeField]
     private GameObject afterImagePrefab;
 
-    private Queue<GameObject> avialableobjects = new Queue<GameObject>();
+    private Queue<GameObject> availableobjects = new Queue<GameObject>();
 
     public static PlayerAfterImagePool Instance { get; private set; }
 
@@ -15,33 +15,32 @@ public class PlayerAfterImagePool : MonoBehaviour
     {
         Instance = this;
         GrowPool();
-
     }
 
     private void GrowPool()
     {
         for(int i = 0; i < 10; i++)
         {
-            var instanceToAdd = Instantiate(afterImagePrefab);
-            instanceToAdd.transform.SetParent(transform);
-            AddtoPool(instanceToAdd);
+            var InstanceToAdd = Instantiate(afterImagePrefab);
+            InstanceToAdd.transform.SetParent(transform);
+            AddToPool(InstanceToAdd);
         }
     }
 
-    public void AddtoPool(GameObject instance)
+    public void AddToPool(GameObject instance)
     {
         instance.SetActive(false);
-        avialableobjects.Enqueue(instance);
+        availableobjects.Enqueue(instance);
     }
 
     public GameObject GetFromPool()
     {
-        if(avialableobjects.Count == 0)
+        if(availableobjects.Count == 0)
         {
             GrowPool();
         }
 
-        var instance = avialableobjects.Dequeue();
+        var instance = availableobjects.Dequeue();
         instance.SetActive(true);
         return instance;
     }

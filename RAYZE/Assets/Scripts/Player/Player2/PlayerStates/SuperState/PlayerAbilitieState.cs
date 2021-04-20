@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAbilityState : PlayerState
+public class PlayerAbilitieState : PlayerState
 {
     protected bool isAbilityDone;
 
     private bool isGrounded;
 
-    public PlayerAbilityState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
+    public PlayerAbilitieState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
     }
 
@@ -22,7 +22,6 @@ public class PlayerAbilityState : PlayerState
     public override void Enter()
     {
         base.Enter();
-
         isAbilityDone = false;
     }
 
@@ -37,18 +36,14 @@ public class PlayerAbilityState : PlayerState
 
         if (isAbilityDone)
         {
-            if (isGrounded)
+            if (isGrounded && player.CurrentVelocity.y < 0.01f)
             {
-                //Wenn wir am Boden sind, dann ist Idle
-                if (isGrounded && player.CurrentVelocity.y < 0.01f )
-                {
-                    stateMachine.ChangeState(player.IdleState);
-                }
-                else
-                {
-                    //Sonst sind wir im Jump/in der luft
-                    stateMachine.ChangeState(player.InAirState);
-                }
+                stateMachine.ChangeState(player.IdleState);
+            }
+            else
+            {
+                stateMachine.ChangeState(player.InAirState);
+
             }
         }
     }

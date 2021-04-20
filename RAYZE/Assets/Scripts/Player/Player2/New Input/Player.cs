@@ -49,12 +49,13 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        CurrentVelocity = RB.velocity;
         StateMachine.CurrentState.LogicUpdate();
     }
 
     private void FixedUpdate()
     {
-        CurrentVelocity = RB.velocity;
+        
         StateMachine.CurrentState.PhysicsUpdate();
     }
 
@@ -66,11 +67,13 @@ public class Player : MonoBehaviour
         CurrentVelocity = workspace;
     }
 
+    //Bewegumng Richtung Y
     public void SetVelocityY(float velocity)
     {
         workspace.Set(CurrentVelocity.x, velocity);
         RB.velocity = workspace;
         CurrentVelocity = workspace;
+        
     }
 
     public bool CheckIfTouchinGround()
@@ -86,15 +89,15 @@ public class Player : MonoBehaviour
         }
     }
 
-     private void AnimationTrigger()
-    {
-        StateMachine.CurrentState.AnimationTrigger();
-    }
+     //private void AnimationTrigger()
+    //{
+        //StateMachine.CurrentState.AnimationTrigger();
+    //}
 
-    private void AnimationFinishTrigger()
-    {
-        StateMachine.CurrentState.AnimationFinishTrigger();
-    }
+    //private void AnimationFinishTrigger()
+    //{
+        //StateMachine.CurrentState.AnimationFinishTrigger();
+    //}
 
     //Damit unser Player flippt
     private void Flip()
