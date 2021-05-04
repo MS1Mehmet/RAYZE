@@ -24,7 +24,6 @@ public class PlayerJumpState : PlayerAbilityState
     {
         if(amountOfJumpsLeft > 0)
         {
-            Debug.Log("Ich kann springen");
             return true;
         }
         else

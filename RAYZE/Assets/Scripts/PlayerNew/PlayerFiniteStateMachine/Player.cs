@@ -17,6 +17,9 @@ public class Player : MonoBehaviour
     public PlayerWallGrabState WallGrabState { get; private set; }
     public PlayerWallClimbState WallClimbState { get; private set; }
     public PlayerWallJumpState WallJumpState { get; private set; }
+    public PlayerDamageState DamageState { get; private set; }
+    public PlayerDeathState DeathState { get; private set; }
+    public PlayerAttackState AttackState { get; private set; }
 
     [SerializeField]
     private PlayerData playerData;
@@ -42,6 +45,9 @@ public class Player : MonoBehaviour
     public int FacingDirection { get; private set; }
 
     private Vector2 workspace;
+
+    public bool isHit { get; private set; }
+    public bool isDeath { get; private set; }
     #endregion
 
     #region Unity Callback Function
@@ -58,6 +64,9 @@ public class Player : MonoBehaviour
         WallGrabState = new PlayerWallGrabState(this, StateMachine, playerData, "wallSlide");
         WallClimbState = new PlayerWallClimbState(this, StateMachine, playerData, "wallClimb");
         WallJumpState = new PlayerWallJumpState(this, StateMachine, playerData, "inAir");
+        DamageState = new PlayerDamageState(this, StateMachine, playerData, "damage");
+        DeathState = new PlayerDeathState(this, StateMachine, playerData, "death");
+        AttackState = new PlayerAttackState(this, StateMachine, playerData, "attack");
     }
 
     private void Start()
@@ -68,6 +77,8 @@ public class Player : MonoBehaviour
 
         FacingDirection = 1;
         StateMachine.Initialize(IdleState);
+        isHit = false;
+        isDeath = false;
     }
 
     private void Update()
@@ -80,6 +91,16 @@ public class Player : MonoBehaviour
     {
         StateMachine.CurrentState.PhysicsUpdate();
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy") && isHit == false && !isDeath)
+        {
+            GotHit();
+            Debug.Log("Getroffen");
+        }
+    }
+
     #endregion
 
     #region Set Functions
@@ -103,6 +124,15 @@ public class Player : MonoBehaviour
         workspace.Set(angle.x * velocity * direction, angle.y * velocity);
         RB.velocity = workspace;
         CurrentVelocity = workspace;
+    }
+
+    public void GotHit() => isHit = true;
+
+    public void StopHit() => isHit = false;
+
+    public void SetDeath(bool state)
+    {
+        isDeath = state;
     }
     #endregion
 
@@ -129,6 +159,7 @@ public class Player : MonoBehaviour
             Flip();
         }
     }
+
     #endregion
 
     #region Other Functions

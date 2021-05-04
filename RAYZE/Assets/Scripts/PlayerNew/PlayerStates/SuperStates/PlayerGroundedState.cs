@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerGroundedState : PlayerState
 {
     protected int xInput;
+    protected int yInput;
 
     private bool jumpInput;
     private bool grabInput;
@@ -39,11 +40,19 @@ public class PlayerGroundedState : PlayerState
         base.LogicUpdate();
 
         xInput = player.InputHandler.NormInputX;
+        yInput = player.InputHandler.NormInputY;
         jumpInput = player.InputHandler.JumpInput;
-        grabInput = player.InputHandler.GrabInput;
+        //grabInput = player.InputHandler.GrabInput;
 
-
-        if (jumpInput && player.JumpState.CanJump())
+        if (player.InputHandler.AttackInput)
+        {
+            stateMachine.ChangeState(player.AttackState);
+        }
+        else if (player.isHit)
+        {
+            stateMachine.ChangeState(player.DamageState);
+        }
+        else if (jumpInput && player.JumpState.CanJump())
         {
             player.InputHandler.UseJumpInput();
             stateMachine.ChangeState(player.JumpState);

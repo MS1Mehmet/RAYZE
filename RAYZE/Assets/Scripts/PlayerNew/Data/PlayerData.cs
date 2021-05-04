@@ -5,6 +5,19 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="newPlayerDate", menuName ="Data/Player Data/Base Data")]
 public class PlayerData : ScriptableObject
 {
+    ////////////////////////////
+    // Hauptstats vom Player
+
+    [Header("Health")]
+    public int playerHealth = 100;
+    public float hitVelocity = 40f;
+    public Vector2 hitAngle = new Vector2(4,4);
+    public float deathTime = 10f;
+
+    [Header("Default Weapon")]
+    public float damage = 2f;
+    public float coolDown = 2f;
+
     [Header("Move State")]
     public float movementVelocity = 10f;
 

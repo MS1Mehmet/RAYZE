@@ -8,6 +8,7 @@ public class PlayerInAirState : PlayerState
 
     private bool isGrounded;
     private int xInput;
+    private int yInput;
     private bool jumpInput;
     private bool jumpInputStop;
     private bool isJumping;
@@ -42,13 +43,22 @@ public class PlayerInAirState : PlayerState
         base.LogicUpdate();
 
         xInput = player.InputHandler.NormInputX;
+        yInput = player.InputHandler.NormInputY;
         jumpInput = player.InputHandler.JumpInput;
         jumpInputStop = player.InputHandler.JumpInputStop;
         grabInput = player.InputHandler.GrabInput;
 
         checkJumpMultiplier();
 
-        if (isGrounded && player.CurrentVelocity.y < 0.01f)
+        if (player.InputHandler.AttackInput)
+        {
+            stateMachine.ChangeState(player.AttackState);
+        }
+        if(player.isHit)
+            {
+                stateMachine.ChangeState(player.DamageState);
+            }
+        else if (isGrounded && player.CurrentVelocity.y < 0.01f)
         {
             // Wenn LandeAnimation vorhanden dann statt IdleState zu LandState
             //stateMachine.ChangeState(player.IdleState);
@@ -83,8 +93,9 @@ public class PlayerInAirState : PlayerState
         {
             player.CheckIfShouldFlip(xInput);
             player.SetVelocityX(playerData.movementVelocity * xInput);
-
+            
             player.Anim.SetFloat("yVelocity", player.CurrentVelocity.y);
+            player.Anim.SetFloat("yInput", yInput);
         }
     }
     

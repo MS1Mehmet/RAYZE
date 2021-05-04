@@ -29,10 +29,26 @@ public class PlayerMoveState : PlayerGroundedState
 
         player.CheckIfShouldFlip(xInput);
 
-        player.SetVelocityX(playerData.movementVelocity * xInput);
-        if (xInput == 0f && !isExitingState)
+        //player.SetVelocityX(playerData.movementVelocity * xInput);
+
+        if (!isExitingState)
         {
-            stateMachine.ChangeState(player.IdleState);
+            if (xInput == 0f)
+            {
+                stateMachine.ChangeState(player.IdleState);
+            }
+            else
+            {
+                player.SetVelocityX(playerData.movementVelocity * xInput);
+                if (yInput != 0f)
+                {
+                    player.Anim.SetFloat("yInput", yInput);
+                }
+                else
+                {
+                    player.Anim.SetFloat("yInput", 0f);
+                }
+            }
         }
     }
 

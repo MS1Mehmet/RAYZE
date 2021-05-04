@@ -14,7 +14,7 @@ public class PlayerWallJumpState : PlayerAbilityState
     {
         base.Enter();
 
-        player.JumpState.ResetAmountOfJumpsLeft();
+       //player.JumpState.ResetAmountOfJumpsLeft();
         player.SetVelocity(playerData.wallJumpVelocity, playerData.wallJumpAngle, wallJumpDirection);
         player.CheckIfShouldFlip(wallJumpDirection);
         player.JumpState.DecreaseAmountOfJumpsLeft();
@@ -24,8 +24,8 @@ public class PlayerWallJumpState : PlayerAbilityState
     {
         base.LogicUpdate();
 
-        player.Anim.SetFloat("yvelocity", player.CurrentVelocity.y);
-        player.Anim.SetFloat("xvelocity", Mathf.Abs(player.CurrentVelocity.x));
+        player.Anim.SetFloat("yVelocity", player.CurrentVelocity.y);
+        //player.Anim.SetFloat("xvelocity", Mathf.Abs(player.CurrentVelocity.x));
 
         if(Time.time >= startTime + playerData.wallJumpTime)
         {

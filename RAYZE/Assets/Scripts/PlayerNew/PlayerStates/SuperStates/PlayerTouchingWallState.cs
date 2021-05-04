@@ -50,7 +50,11 @@ public class PlayerTouchingWallState : PlayerState
         yInput = player.InputHandler.NormInputY;
         grabInput = player.InputHandler.GrabInput;
 
-        if (isGrounded && !grabInput)
+        if (player.isHit)
+        {
+            stateMachine.ChangeState(player.DamageState);
+        }
+        else if (isGrounded && !grabInput)
         {
             stateMachine.ChangeState(player.IdleState);
         }
