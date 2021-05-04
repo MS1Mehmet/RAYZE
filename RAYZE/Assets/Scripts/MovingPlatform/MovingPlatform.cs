@@ -9,7 +9,7 @@ public class MovingPlatform : MonoBehaviour
     public Transform pos1, pos2;
     public float speed;
     public Transform startPos;
-    Vector3 nextPos;
+    Vector2 nextPos;
     public GameObject Player;
     // Start is called before the first frame update
     void Start()
@@ -30,7 +30,7 @@ public class MovingPlatform : MonoBehaviour
             nextPos = pos2.position;
         }
 
-        transform.position = Vector3.MoveTowards(transform.position, nextPos, speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, nextPos, speed * Time.deltaTime);
     }
 
     private void OnDrawGizmos()
