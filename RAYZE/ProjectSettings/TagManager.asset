@@ -49,9 +49,30 @@ TagManager:
   - name: Background
     uniqueID: 563016205
     locked: 0
-  - name: Foreground
-    uniqueID: 2421804003
-    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 3503681505
+    locked: 0
+  - name: Background2
+    uniqueID: 3297501653
+    locked: 0
+  - name: Spears
+    uniqueID: 3727245109
+    locked: 0
+  - name: Wall
+    uniqueID: 3501450451
+    locked: 0
+  - name: Ground
+    uniqueID: 3653142233
+    locked: 0
+  - name: blood
+    uniqueID: 4109607683
+    locked: 0
+  - name: dust
+    uniqueID: 1449433587
+    locked: 0
+  - name: Foreground
+    uniqueID: 2421804003
     locked: 0
