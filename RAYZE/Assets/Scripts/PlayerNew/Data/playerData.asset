@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1bca9b2e0dd73488730c5e7c6d79a5, type: 3}
   m_Name: playerData
   m_EditorClassIdentifier: 
-  playerHealth: 20
+  playerHealth: 90
   hitVelocity: 15
   hitAngle: {x: 1, y: 2}
   deathTime: 1.5

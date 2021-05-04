@@ -97,7 +97,6 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy") && isHit == false && !isDeath)
         {
             GotHit();
-            Debug.Log("Getroffen");
         }
     }
 

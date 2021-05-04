@@ -21,8 +21,9 @@ public class PlayerDamageState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        if (!player.isDeath)
+        if (!player.isDeath && player.isHit)
         {
+            Debug.Log("Bin getroffen");
             playerData.playerHealth = playerData.playerHealth - 10;
             player.SetVelocity(playerData.hitVelocity, playerData.hitAngle, player.FacingDirection * -1);
         }
@@ -39,6 +40,7 @@ public class PlayerDamageState : PlayerState
 
         if (playerData.playerHealth <= 0)
         {
+            Debug.Log("Switche zu DeathState");
             stateMachine.ChangeState(player.DeathState);
         }
         else if (!player.isHit)
