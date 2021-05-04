@@ -20,7 +20,7 @@ public class Nebeleffekt : MonoBehaviour
 
     private void transparentSprite() 
     {
-        sprite.color = new Color(1f, 1f, 1f, 0.4f);  // Red-Green-blue- alpha) alpha ist die tranparenz!
+        sprite.color = new Color(1f, 1f, 0.8f, 0.55f);  // Red-Green-blue- alpha) alpha ist die tranparenz!
     }
 
 }
