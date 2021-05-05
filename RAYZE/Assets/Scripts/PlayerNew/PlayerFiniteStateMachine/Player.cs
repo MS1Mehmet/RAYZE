@@ -125,6 +125,12 @@ public class Player : MonoBehaviour
         CurrentVelocity = workspace;
     }
 
+    public void SetVelocityZero()
+    {
+        RB.velocity = Vector2.zero;
+        CurrentVelocity = Vector2.zero;
+    }
+
     public void GotHit() => isHit = true;
 
     public void StopHit() => isHit = false;

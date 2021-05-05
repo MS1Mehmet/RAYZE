@@ -23,8 +23,8 @@ public class PlayerDamageState : PlayerState
         base.Enter();
         if (!player.isDeath && player.isHit)
         {
-            Debug.Log("Bin getroffen");
-            playerData.playerHealth = playerData.playerHealth - 10;
+            // Hier Enemy Damage übergeben
+            playerData.playerCurrentHealth -= 10;
             player.SetVelocity(playerData.hitVelocity, playerData.hitAngle, player.FacingDirection * -1);
         }
     }
@@ -38,9 +38,8 @@ public class PlayerDamageState : PlayerState
     {
         base.LogicUpdate();
 
-        if (playerData.playerHealth <= 0)
+        if (playerData.playerCurrentHealth <= 0)
         {
-            Debug.Log("Switche zu DeathState");
             stateMachine.ChangeState(player.DeathState);
         }
         else if (!player.isHit)
