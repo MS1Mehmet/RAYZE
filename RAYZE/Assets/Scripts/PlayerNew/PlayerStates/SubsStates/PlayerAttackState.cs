@@ -7,6 +7,7 @@ public class PlayerAttackState : PlayerAbilityState
     private float damage;
     private float coolDown;
     private GameObject bullet;
+    protected bool isShooting;
     public PlayerAttackState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
     }
@@ -30,7 +31,7 @@ public class PlayerAttackState : PlayerAbilityState
     {
         base.Enter();
         isAbilityDone = true;
-        //GameObject bullet = Instantiate(bulletPrefab, bulletShootPos.position, Quaternion.identity);
+        //GameObject bullet = Instantiate(bulletPrefab, GunPoint.position, Quaternion.identity);
     }
 
     public override void Exit()

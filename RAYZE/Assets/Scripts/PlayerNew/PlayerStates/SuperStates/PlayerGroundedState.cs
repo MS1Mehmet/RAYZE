@@ -10,7 +10,8 @@ public class PlayerGroundedState : PlayerState
     private bool jumpInput;
     private bool grabInput;
     private bool isGrounded;
-    private bool isTouchingWall;
+    //private bool isTouchingWall;
+    private bool isTouchingClimbWall;
     public PlayerGroundedState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
     }
@@ -20,7 +21,8 @@ public class PlayerGroundedState : PlayerState
         base.DoChecks();
 
         isGrounded = player.CheckIfGrounded();
-        isTouchingWall = player.CheckIfTouchingWall();
+        //isTouchingWall = player.CheckIfTouchingWall();
+        isTouchingClimbWall = player.CheckIfTouchingClimbWall();
     }
 
     public override void Enter()
@@ -42,7 +44,7 @@ public class PlayerGroundedState : PlayerState
         xInput = player.InputHandler.NormInputX;
         yInput = player.InputHandler.NormInputY;
         jumpInput = player.InputHandler.JumpInput;
-        //grabInput = player.InputHandler.GrabInput;
+        grabInput = player.InputHandler.GrabInput;
 
         if (player.InputHandler.AttackInput)
         {
@@ -60,10 +62,10 @@ public class PlayerGroundedState : PlayerState
         {
             player.JumpState.DecreaseAmountOfJumpsLeft();
             stateMachine.ChangeState(player.InAirState);
-        } /*else if (isTouchingWall && grabInput)
+        } else if (isTouchingClimbWall && grabInput)
         {
             stateMachine.ChangeState(player.WallGrabState);
-        }*/
+        }
     }
 
     public override void PhysicsUpdate()

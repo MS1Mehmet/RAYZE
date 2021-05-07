@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1bca9b2e0dd73488730c5e7c6d79a5, type: 3}
   m_Name: playerData
   m_EditorClassIdentifier: 
-  playerHealth: 0
+  playerMaxHealth: 100
+  playerCurrentHealth: 100
   hitVelocity: 15
   hitAngle: {x: 1, y: 2}
   deathTime: 3
@@ -31,3 +32,9 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 512
+  whatIsWall:
+    serializedVersion: 2
+    m_Bits: 2048
+  whatIsClimbWall:
+    serializedVersion: 2
+    m_Bits: 8192
