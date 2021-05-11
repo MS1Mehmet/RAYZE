@@ -64,8 +64,6 @@ public class PlayerInAirState : PlayerState
             }
         else if (isGrounded && player.CurrentVelocity.y < 0.01f)
         {
-            // Wenn LandeAnimation vorhanden dann statt IdleState zu LandState
-            //stateMachine.ChangeState(player.IdleState);
             if (xInput != 0)
             {
                 stateMachine.ChangeState(player.MoveState);

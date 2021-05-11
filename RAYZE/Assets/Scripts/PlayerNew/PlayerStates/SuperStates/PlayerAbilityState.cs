@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerAbilityState : PlayerState
 {
     protected bool isAbilityDone;
+    protected bool attackInput;
 
     private bool isGrounded;
 
@@ -15,14 +16,12 @@ public class PlayerAbilityState : PlayerState
     public override void DoChecks()
     {
         base.DoChecks();
-
         isGrounded = player.CheckIfGrounded();
     }
 
     public override void Enter()
     {
         base.Enter();
-
         isAbilityDone = false;
     }
 
@@ -34,6 +33,7 @@ public class PlayerAbilityState : PlayerState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+        attackInput = player.InputHandler.AttackInput;
 
         if (isAbilityDone)
         {

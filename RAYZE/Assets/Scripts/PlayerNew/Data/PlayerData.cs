@@ -17,10 +17,6 @@ public class PlayerData : ScriptableObject
     public Vector2 hitAngle = new Vector2(4, 4);
     public float deathTime = 10f;
 
-    [Header("Default Weapon")]
-    public float damage = 2f;
-    public float coolDown = 2f;
-
     [Header("Move State")]
     public float movementVelocity = 10f;
 

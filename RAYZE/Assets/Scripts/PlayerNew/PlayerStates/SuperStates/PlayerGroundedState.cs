@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class PlayerGroundedState : PlayerState
 {
+    #region Variablen
+    //Input Variablen
     protected int xInput;
     protected int yInput;
 
     private bool jumpInput;
     private bool grabInput;
+    private bool attackInput;
+
+    //Check Variablen
     private bool isGrounded;
-    //private bool isTouchingWall;
     private bool isTouchingClimbWall;
+    #endregion
+
     public PlayerGroundedState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
     }
@@ -21,7 +27,6 @@ public class PlayerGroundedState : PlayerState
         base.DoChecks();
 
         isGrounded = player.CheckIfGrounded();
-        //isTouchingWall = player.CheckIfTouchingWall();
         isTouchingClimbWall = player.CheckIfTouchingClimbWall();
     }
 
@@ -45,8 +50,9 @@ public class PlayerGroundedState : PlayerState
         yInput = player.InputHandler.NormInputY;
         jumpInput = player.InputHandler.JumpInput;
         grabInput = player.InputHandler.GrabInput;
+        attackInput = player.InputHandler.AttackInput;
 
-        if (player.InputHandler.AttackInput)
+        if (attackInput)
         {
             stateMachine.ChangeState(player.AttackState);
         }

@@ -17,8 +17,6 @@ MonoBehaviour:
   hitVelocity: 15
   hitAngle: {x: 1, y: 2}
   deathTime: 3
-  damage: 2
-  coolDown: 2
   movementVelocity: 10
   jumpVelocity: 20
   amountOfJumps: 2

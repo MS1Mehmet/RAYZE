@@ -4,22 +4,8 @@ using UnityEngine;
 
 public class PlayerAttackState : PlayerAbilityState
 {
-    private float damage;
-    private float coolDown;
-    private GameObject bullet;
-    protected bool isShooting;
     public PlayerAttackState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
-    }
-
-    public override void AnimationFinishTrigger()
-    {
-        base.AnimationFinishTrigger();
-    }
-
-    public override void AnimationTrigger()
-    {
-        base.AnimationTrigger();
     }
 
     public override void DoChecks()
@@ -30,34 +16,26 @@ public class PlayerAttackState : PlayerAbilityState
     public override void Enter()
     {
         base.Enter();
-        isAbilityDone = true;
-        //GameObject bullet = Instantiate(bulletPrefab, GunPoint.position, Quaternion.identity);
+        player.Weapon.Enter();
     }
 
     public override void Exit()
     {
         base.Exit();
+        player.Weapon.Exit();
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+        if (!attackInput)
+        {
+            stateMachine.ChangeState(player.IdleState);
+        }
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-    }
-
-    public void SetWeapon(float damage, float coolDown)
-    {
-        this.damage = damage;
-        this.coolDown = coolDown;
-    }
-
-    public void DefaultWeapon()
-    {
-        damage = playerData.damage;
-        coolDown = playerData.coolDown;
     }
 }

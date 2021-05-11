@@ -11575,6 +11575,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &450153235 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3132606692075104857, guid: 9fe0d1c949beeb944a6066870b396fa6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1889591218}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea5ed264dd9ee10499d406b83108d0f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &484611680
 GameObject:
   m_ObjectHideFlags: 0
@@ -122722,25 +122734,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3132606692075104836, guid: 9fe0d1c949beeb944a6066870b396fa6,
-        type: 3}
-      propertyPath: m_Material
+    - target: {fileID: 450153231, guid: 9fe0d1c949beeb944a6066870b396fa6, type: 3}
+      propertyPath: player
       value: 
-      objectReference: {fileID: 6200000, guid: 14d43cf4700eb3d44975ca0cf794cf74, type: 2}
+      objectReference: {fileID: 450153235}
     - target: {fileID: 3132606692075104838, guid: 9fe0d1c949beeb944a6066870b396fa6,
         type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 3132606692075104858, guid: 9fe0d1c949beeb944a6066870b396fa6,
-        type: 3}
-      propertyPath: m_SortingLayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3132606692075104858, guid: 9fe0d1c949beeb944a6066870b396fa6,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: -791285791
       objectReference: {fileID: 0}
     - target: {fileID: 3132606692075104862, guid: 9fe0d1c949beeb944a6066870b396fa6,
         type: 3}
