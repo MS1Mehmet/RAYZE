@@ -14,6 +14,8 @@ public class PlayerInAirState : PlayerState
     private bool isJumping;
     private bool isTouchingWall;
     private bool isTouchingWallBack;
+    private bool isTouchingClimbWall;
+    private bool isTouchingClimbWallBack;
     private bool grabInput;
     public PlayerInAirState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
@@ -26,6 +28,8 @@ public class PlayerInAirState : PlayerState
         isGrounded = player.CheckIfGrounded();
         isTouchingWall = player.CheckIfTouchingWall();
         isTouchingWallBack = player.CheckIfTouchingWallBack();
+        isTouchingClimbWall = player.CheckIfTouchingClimbWall();
+        isTouchingClimbWallBack = player.CheckIfTouchingClimbWallBack();
     }
 
     public override void Enter()
@@ -60,8 +64,6 @@ public class PlayerInAirState : PlayerState
             }
         else if (isGrounded && player.CurrentVelocity.y < 0.01f)
         {
-            // Wenn LandeAnimation vorhanden dann statt IdleState zu LandState
-            //stateMachine.ChangeState(player.IdleState);
             if (xInput != 0)
             {
                 stateMachine.ChangeState(player.MoveState);
@@ -76,16 +78,21 @@ public class PlayerInAirState : PlayerState
             player.WallJumpState.DetermineWallJumpDirection(isTouchingWall);
             stateMachine.ChangeState(player.WallJumpState);
         }
+        else if (jumpInput && (isTouchingClimbWall || isTouchingClimbWallBack))
+        {
+            player.WallJumpState.DetermineWallJumpDirection(isTouchingClimbWall);
+            stateMachine.ChangeState(player.WallJumpState);
+        }
         else if (jumpInput && player.JumpState.CanJump())
         {
             player.InputHandler.UseJumpInput();
             stateMachine.ChangeState(player.JumpState);
         }
-        else if (isTouchingWall && grabInput)
+        else if (isTouchingClimbWall && grabInput)
         {
             stateMachine.ChangeState(player.WallGrabState);
         }
-        else if (isTouchingWall && xInput == player.FacingDirection && player.CurrentVelocity.y <= 0)
+        else if ((isTouchingWall || isTouchingClimbWall) && xInput == player.FacingDirection && player.CurrentVelocity.y <= 0)
         {
             stateMachine.ChangeState(player.WallSlideState);
         }

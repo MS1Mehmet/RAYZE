@@ -43,7 +43,6 @@ public class PlayerIdleState : PlayerGroundedState
                 player.Anim.SetFloat("yInput", 0f);
             }
         }
-
     }
 
     public override void PhysicsUpdate()

@@ -27,12 +27,12 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (context.started)
         {
-            AttackInput = true;
+           // AttackInput = true;
         }
 
         if (context.canceled)
         {
-            AttackInput = false;
+           // AttackInput = false;
         }
     }
     public void OnMoveInput(InputAction.CallbackContext context)
