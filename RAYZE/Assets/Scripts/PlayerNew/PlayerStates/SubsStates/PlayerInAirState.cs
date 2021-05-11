@@ -52,6 +52,7 @@ public class PlayerInAirState : PlayerState
 
         if (player.InputHandler.AttackInput)
         {
+
             stateMachine.ChangeState(player.AttackState);
         }
         if(player.isHit)
@@ -63,6 +64,7 @@ public class PlayerInAirState : PlayerState
             player.CreateDust();
             if (xInput != 0)
             {
+             
                 stateMachine.ChangeState(player.MoveState);
             }
             else

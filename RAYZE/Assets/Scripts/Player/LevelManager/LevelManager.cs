@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelManager : MonoBehaviour
-{
+//public class LevelManager : MonoBehaviour
+//{
     // aktuelle Checkpoint
-    public GameObject currentCheckpoint;
+    //public GameObject currentCheckpoint;
     // spieler gameonjekt
-    public GameObject player;
+    //public GameObject player;
 
-   public void RespawnPlayer()
-    {
+   //public void RespawnPlayer()
+    //{
         // spieler an die position des checkpoints bringen
-        player.transform.position = currentCheckpoint.transform.position;
-    }
-}
+        //player.transform.position = currentCheckpoint.transform.position;
+    //}
+//}
