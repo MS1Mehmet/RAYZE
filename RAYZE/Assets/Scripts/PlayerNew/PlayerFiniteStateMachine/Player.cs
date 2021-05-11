@@ -5,6 +5,7 @@ using UnityEngine.Rendering;
 
 public class Player : MonoBehaviour
 {
+    public ParticleSystem dust;
     #region State Variables
     public PlayerStateMachine StateMachine { get; private set; }
 
@@ -181,8 +182,14 @@ public class Player : MonoBehaviour
     private void AnimationFinishTrigger() => StateMachine.CurrentState.AnimationFinishTrigger();
     private void Flip()
     {
+        CreateDust();
         FacingDirection *= -1;
         transform.Rotate(0.0f, 180.0f, 0.0f);
     }
     #endregion
+
+    public void CreateDust()
+    {
+        dust.Play();
+    }
 }
