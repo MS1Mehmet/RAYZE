@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerGroundedState : PlayerState
 {
+
+    
     protected int xInput;
     protected int yInput;
 
@@ -54,6 +56,7 @@ public class PlayerGroundedState : PlayerState
         }
         else if (jumpInput && player.JumpState.CanJump())
         {
+            player.CreateDust();
             player.InputHandler.UseJumpInput();
             stateMachine.ChangeState(player.JumpState);
         } else if (!isGrounded) 
@@ -70,4 +73,6 @@ public class PlayerGroundedState : PlayerState
     {
         base.PhysicsUpdate();
     }
+
+    
 }
