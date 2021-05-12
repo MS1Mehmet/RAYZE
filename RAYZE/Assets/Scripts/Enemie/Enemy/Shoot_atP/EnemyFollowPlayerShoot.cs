@@ -11,9 +11,13 @@ public class EnemyFollowPlayerShoot : MonoBehaviour
     public GameObject bullet;           //## the bullets which will be shoot ##  
     public GameObject bulletParent;     //## Position from the shooting enemy##
     private Transform player;
+    
     public float fireRate = 1f;
     public float nextFireTime;
     private bool facingLeft = false;
+    public Animator animator;
+
+    public bool attackAn = false;
 
 
     //####### Der player wird hier als objekt intialisiert, aber über denn Tag Player, somit kann er anvisiert werden! ###########
@@ -21,9 +25,27 @@ public class EnemyFollowPlayerShoot : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        animator = GetComponent<Animator>();
     }
 
-    
+    private void stateIdle() 
+    {
+        float distanceFromplayer = Vector2.Distance(player.position, transform.position);
+        if(distanceFromplayer <= shootingRange && nextFireTime < Time.time)
+        {
+            animator.SetBool("attackAn", true);
+            animator.Play("attackAnimation");
+
+        }
+
+    }
+
+
+    private void Update()
+    {
+        stateIdle();
+    }
+
     //##### Wenn der Player in die Reichweite des Radiuses kommt, dann wird er sich in seine Richtung bewegen#######
     // Update is called once per frame
     void FixedUpdate()
@@ -67,7 +89,7 @@ public class EnemyFollowPlayerShoot : MonoBehaviour
     //### Hier wird der Radius dargestellt und sobald sich der player() in diesem Radius befindet wird er angegriffen###!!
     void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.green;
+        Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position,lineOfSite);
         Gizmos.DrawWireSphere(transform.position,shootingRange);
     }
