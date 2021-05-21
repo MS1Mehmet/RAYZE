@@ -85,6 +85,7 @@ public class PlayerInAirState : PlayerState
         }
         else if (jumpInput && player.JumpState.CanJump())
         {
+            
             player.InputHandler.UseJumpInput();
             stateMachine.ChangeState(player.JumpState);
         }
