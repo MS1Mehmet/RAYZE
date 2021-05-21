@@ -52,6 +52,8 @@ public class BasicEnemyController : MonoBehaviour
     private Rigidbody2D aliveRb;
     private Animator aliveAnim;
 
+
+
     private void Start()
     {
         alive = transform.Find("Alive").gameObject;

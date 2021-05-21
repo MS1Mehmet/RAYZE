@@ -4,7 +4,6 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - MGround
   - Bullet
   - Ground
   - Enemy
@@ -46,11 +45,17 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Parallax
+    uniqueID: 3553024475
+    locked: 0
   - name: Background
     uniqueID: 563016205
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Enemy
+    uniqueID: 154893089
     locked: 0
   - name: Player
     uniqueID: 3503681505

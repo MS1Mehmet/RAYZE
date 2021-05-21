@@ -25,7 +25,7 @@ public class FallingObjects : MonoBehaviour
         if (collision.tag == "Player")
         {
             rb.isKinematic = false;
-           // Debug.Log("WTF TRIGGER");
+          // Debug.Log("WTF TRIGGER");
             
 
         }
@@ -45,7 +45,8 @@ public class FallingObjects : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D collision)  // Dieser Checkt nun die Kollision mit dem Jeweiligen GameObject!
-    {
+    {   
+        /*
         if (collision.gameObject.CompareTag("Player"))
         {
             PlayerController player = collision.gameObject.GetComponent<PlayerController>();
@@ -55,7 +56,7 @@ public class FallingObjects : MonoBehaviour
             SpikeHitSet();
             Destroy(gameObject, 0.3f);
         }
-
+        */
         if (collision.gameObject.CompareTag("Ground"))
         {
             SpikeHitSet();
