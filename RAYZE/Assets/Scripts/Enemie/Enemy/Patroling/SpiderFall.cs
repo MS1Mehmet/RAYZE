@@ -106,10 +106,15 @@ public class SpiderFall : MonoBehaviour
             transform.eulerAngles = new Vector3(0, 0, 180);  // x,y,z Achse werden manipuliert.
             transform.position += Vector3.down * fallSpeed * Time.deltaTime;
             speed *= -1f;
+            if(isFacingRight) 
+            {
+                Flip();            
+            }
 
         }
     }
 
+    
 
     public void groundWallCheck() 
     {

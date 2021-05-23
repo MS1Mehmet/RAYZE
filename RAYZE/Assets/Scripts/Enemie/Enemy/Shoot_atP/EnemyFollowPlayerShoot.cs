@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//Source https://www.youtube.com/watch?v=lHLZxd0O6XY ChronoAbi
+
 public class EnemyFollowPlayerShoot : MonoBehaviour
 {
     public float speed;
@@ -15,9 +15,7 @@ public class EnemyFollowPlayerShoot : MonoBehaviour
     public float fireRate = 1f;
     public float nextFireTime;
     private bool facingLeft = false;
-    public Animator animator;
-
-    public bool attackAn = false;
+    Animator animator;
 
 
     //####### Der player wird hier als objekt intialisiert, aber über denn Tag Player, somit kann er anvisiert werden! ###########
@@ -28,41 +26,60 @@ public class EnemyFollowPlayerShoot : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    private void stateIdle() 
+    public void stateAttack() 
     {
-        float distanceFromplayer = Vector2.Distance(player.position, transform.position);
-        if(distanceFromplayer <= shootingRange && nextFireTime < Time.time)
-        {
-            animator.SetBool("attackAn", true);
-            animator.Play("attackAnimation");
+        animator.SetBool("detectPlayer", true);
+      //  animator.Play("attackAnimation");
 
-        }
+    }
 
+    private void idleState() 
+    {
+        animator.SetBool("detectPlayer", false);
+        animator.Play("Idle");
     }
 
 
     private void Update()
     {
-        stateIdle();
+        
     }
 
     //##### Wenn der Player in die Reichweite des Radiuses kommt, dann wird er sich in seine Richtung bewegen#######
     // Update is called once per frame
     void FixedUpdate()
-    {   
-        float distanceFromplayer = Vector2.Distance(player.position, transform.position);
-        if (distanceFromplayer < lineOfSite && distanceFromplayer>shootingRange)
-        {
-             transform.position = Vector2.MoveTowards(this.transform.position, player.position, speed * Time.deltaTime);
-             FlipTowardsPlayer();
-        }
+    {
+        runTowardsPlayer();
+
+        /*
         else if(distanceFromplayer <= shootingRange && nextFireTime < Time.time)
         {
             Instantiate(bullet, bulletParent.transform.position, Quaternion.identity);
             nextFireTime = Time.time + fireRate;
             FlipTowardsPlayer();
+            stateAttack();
+
+        }
+        else 
+        {
+            //idleState();
+        }
+        */
+    }
+
+    private void runTowardsPlayer() 
+    {
+        float distanceFromplayer = Vector2.Distance(player.position, transform.position);
+        if (distanceFromplayer < lineOfSite && distanceFromplayer>shootingRange)
+        {
+             transform.position = Vector2.MoveTowards(this.transform.position, player.position, speed * Time.deltaTime);
+             FlipTowardsPlayer();
+             stateAttack();
         }
     }
+
+
+
 
     
     void FlipTowardsPlayer()

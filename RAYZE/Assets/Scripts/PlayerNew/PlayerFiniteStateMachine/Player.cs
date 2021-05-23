@@ -185,4 +185,16 @@ public class Player : MonoBehaviour
         transform.Rotate(0.0f, 180.0f, 0.0f);
     }
     #endregion
+
+    public float health = 100;
+    public void TakeDamege(float damage) 
+    {
+        health -= damage;
+        Debug.Log("HIT DMG taken");
+        if(health <= 0) 
+        {
+            Debug.Log("dead");
+            //Destroy(gameObject);
+        }
+    }
 }

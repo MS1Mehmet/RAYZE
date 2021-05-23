@@ -100,9 +100,7 @@ GameObject:
   - component: {fileID: 8180044862440881065}
   - component: {fileID: 8180044862440881064}
   - component: {fileID: 8180044862440881067}
-  - component: {fileID: 8180044862440881066}
   - component: {fileID: 7840005069742768067}
-  - component: {fileID: 7425870102911367607}
   m_Layer: 10
   m_Name: BulletLeft
   m_TagString: Enemy
@@ -243,30 +241,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4649658, y: 1.3480912}
   m_EdgeRadius: 0
---- !u!114 &8180044862440881066
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8180044862440881069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 510dccc4e0ae7084bbe4a96e64a36362, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  expls_a: {fileID: 3319238748450500620, guid: 44b9657c89b2a5b47a759d048c71805a, type: 3}
-  freezeEnemy: 1
-  scorePoints: 500
-  currentHealth: 1
-  maxHealth: 1
-  contactDamage: 2
-  explosionDamage: 4
-  bonusItemType: 0
-  bonusDestroyDelay: 5
-  bonusVelocity: {x: 0, y: 3}
-  explodeEffectPrefab: {fileID: 2611646428880889901, guid: 2f101ac73fa938044bf80e632d6d180e,
-    type: 3}
 --- !u!114 &7840005069742768067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,26 +254,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
---- !u!114 &7425870102911367607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8180044862440881069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07efbcf65159cff4eaf8d4d04c423c01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  freezeEnemy: 0
-  scorePoints: 500
-  currentHealth: 0
-  maxHealth: 1
-  contactDamage: 1
-  explosionDamage: 0
-  bonusItemType: 0
-  bonusDestroyDelay: 5
-  bonusVelocity: {x: 0, y: 3}
-  explodeEffectPrefab: {fileID: 2611646428880889901, guid: 2f101ac73fa938044bf80e632d6d180e,
-    type: 3}
