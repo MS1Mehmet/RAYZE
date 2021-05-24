@@ -11,6 +11,7 @@ TagManager:
   - OldSrctySystem
   - Acid
   - Wall
+  - towerTarget
   layers:
   - Default
   - TransparentFX
