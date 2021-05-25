@@ -66,6 +66,7 @@ public class EnemyFollowPlayerShoot : MonoBehaviour
             //idleState();
         }
         */
+        
     }
 
     private void runTowardsPlayer() 
