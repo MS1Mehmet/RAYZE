@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SpiderFall : MonoBehaviour
 {
+
+    // Script Fehlerhaft
     public float speed, fallSpeed;
 
     public float circleRadius;
@@ -18,6 +20,8 @@ public class SpiderFall : MonoBehaviour
     public LayerMask groundLayer2;
     public bool isGrounded2;
     public float circleRadius2;
+
+    private bool falling;
 
 
 
@@ -60,19 +64,22 @@ public class SpiderFall : MonoBehaviour
 
     private void dynamicRun()
     {
-        if(EnemyRB.isKinematic == false) 
+        if(EnemyRB.isKinematic == false && !falling) 
         {
+            speed = 150f;
             EnemyRB.velocity = Vector2.right * speed * Time.deltaTime;
 
-
-            if (isWall && isGrounded || !isGrounded)
+            if (isWall )
             {
                 Flip();
             }
-            if (!isGrounded2) 
+            
+            if (!isGrounded)
             {
                 Flip();
             }
+           
+            
         }
         dashDown();
     }
@@ -103,14 +110,18 @@ public class SpiderFall : MonoBehaviour
         if (EnemyRB.isKinematic == false && !isGrounded && !isWall)
         {
 
-            transform.eulerAngles = new Vector3(0, 0, 180);  // x,y,z Achse werden manipuliert.
+           // transform.eulerAngles = new Vector3(0, 0, 180);  // x,y,z Achse werden manipuliert.
+            transform.localRotation = Quaternion.Euler(0, 0, 180);
             transform.position += Vector3.down * fallSpeed * Time.deltaTime;
+            Flip();
             speed *= -1f;
-            if(isFacingRight) 
-            {
-                Flip();            
-            }
+            falling = true;
+           
 
+        }
+        else 
+        {
+            falling = false;
         }
     }
 
@@ -128,12 +139,14 @@ public class SpiderFall : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-           
+            speed = 0f;
             EnemyRB.isKinematic = false;
 
-            
+            EnemyRB.velocity = Vector2.right * speed * Time.deltaTime;
 
-           
+
+
+
 
         }
     }
