@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class PlayerDeathState : PlayerState
 {
+    
     public PlayerDeathState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
     }
+    
 
     public override void DoChecks()
     {
@@ -34,6 +36,7 @@ public class PlayerDeathState : PlayerState
         {
             playerData.playerCurrentHealth = playerData.playerMaxHealth;
             player.SetDeath(false);
+            player.Respawn();
             stateMachine.ChangeState(player.IdleState);
         }
     }
