@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class WolfEnemy : MonoBehaviour
 {
+    [SerializeField]
+    public Player playerScr;
+
     private Transform player; // not used
-
-
 
     [SerializeField]
     Transform playerDetector;
@@ -42,17 +43,19 @@ public class WolfEnemy : MonoBehaviour
     public LayerMask whatAttacking;
 
     public float attackY, attackX;
-    public float Hitdamage;
+    public int Hitdamage;
 
     public float timeBtwAttack;
     public float startAttack;
 
-    private bool canAttack;
+    public bool canAttack;
     public bool isFacingRight;
 
     Rigidbody2D enemyRb;
     float distToPlayer;
 
+
+    // bool isAttacking 
 
     private GameObject wolf; // für spätere Effekte
    
@@ -75,7 +78,7 @@ public class WolfEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerDetector && wakeUpDetectorPlayer != null)
+        if (playerDetector && !playerScr.isDeath)
         {
             distToPlayer = Vector2.Distance(transform.position, playerDetector.position);
 
@@ -133,25 +136,31 @@ public class WolfEnemy : MonoBehaviour
     }
     void wolfAttackState()
     {
-        
-        
-            if (canAttack && timeBtwAttack <=0 )
+        EnemyAnimation.Play("Wolf-bite");
+
+        if (canAttack && timeBtwAttack <=0 )
             {
                 Collider2D[] playerToDmg = Physics2D.OverlapBoxAll(attackPos.position, new Vector2(attackX, attackY), 0, whatAttacking);
                 for (int i = 0; i < playerToDmg.Length; i++)
                 {
-                    playerToDmg[i].GetComponent<Player>().TakeDamege(Hitdamage);
-                    EnemyAnimation.Play("Wolf-bite");
+                 // playerToDmg[i].GetComponent<PlayerDamageState>().PlayerTakeDamage(Hitdamage);
+                
+                playerScr.DamageState.PlayerTakeDamage(Hitdamage);
+                playerScr.GotHit();
+                Debug.Log(Hitdamage);
                 }
+           
                 timeBtwAttack = startAttack;
+                EnemyAnimation.Play("Wolf-bite");
 
-            }
+        }
             else 
             {
                 timeBtwAttack -= Time.deltaTime;
-               // wolfIdleState();
+                //wolfIdleState();
             }
-           
+        
+
     }
 
 
@@ -211,18 +220,19 @@ public class WolfEnemy : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (playerDetector && wakeUpDetectorPlayer != null)
-        {
+       
+        
             // Gizmos.DrawLine(distance1.position, new Vector2(distance1.position.x + distanceCheck, distance1.position.y)); old Raycast
             Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(attackRadius.transform.position, distanceCheck);  // Angriffszone
+        // Gizmos.DrawWireSphere(attackRadius.transform.position, distanceCheck);  // Angriffszone
+           Gizmos.DrawWireSphere(attackRadius.transform.position, distanceCheck);
 
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(playerDetector.transform.position, aggroRange);
 
             Gizmos.color = Color.red;
             Gizmos.DrawWireCube(attackPos.transform.position, new Vector3(attackX, attackY));
-        }
+        
     }
 
 
