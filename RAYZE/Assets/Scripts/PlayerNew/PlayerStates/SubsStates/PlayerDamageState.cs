@@ -26,6 +26,7 @@ public class PlayerDamageState : PlayerState
             // Hier Enemy Damage übergeben
             playerData.playerCurrentHealth -= 10;
             player.SetVelocity(playerData.hitVelocity, playerData.hitAngle, player.FacingDirection * -1);
+            player.StartCoroutine("Invincibil");
         }
     }
 

@@ -9,27 +9,16 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private float speed = 15f;
 
-    public Rigidbody2D rb;
-
-    public Bullet()
-    {
-    }
+    //public Rigidbody2D rb;
 
     public void Start()
     {
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log(collision);
         Destroy(gameObject);
-    }
-    public void ShootRight()
-    {
-        rb.velocity = Vector2.right * speed;
-    }
-    public void ShootLeft()
-    {
-        rb.velocity = Vector2.left * speed;
     }
 }

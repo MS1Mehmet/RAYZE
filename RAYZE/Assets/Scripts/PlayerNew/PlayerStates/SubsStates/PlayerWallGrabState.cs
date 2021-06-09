@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerWallGrabState : PlayerTouchingWallState
 {
-    private Vector2 holdPostion;
+    private Vector2 holdPosition;
     public PlayerWallGrabState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
     }
@@ -28,7 +28,7 @@ public class PlayerWallGrabState : PlayerTouchingWallState
     {
         base.Enter();
 
-        holdPostion = player.transform.position;
+        holdPosition = player.transform.position;
         HoldPosition();
     }
 
@@ -58,7 +58,7 @@ public class PlayerWallGrabState : PlayerTouchingWallState
 
     private void HoldPosition()
     {
-        player.transform.position = holdPostion;
+        player.transform.position = holdPosition;
 
         player.SetVelocityX(0f);
         player.SetVelocityY(0f);

@@ -16,9 +16,14 @@ public class PlayerData : ScriptableObject
     public float hitVelocity = 40f;
     public Vector2 hitAngle = new Vector2(4, 4);
     public float deathTime = 10f;
+    public int numberOfFlashes = 3;
+    public float flashTime = 2f;
+    public float invincibilTime = 5f;
 
     [Header("Move State")]
     public float movementVelocity = 10f;
+    public PhysicsMaterial2D noFriction;
+    public PhysicsMaterial2D fullFriction;
 
     [Header("Jump State")]
     public float jumpVelocity = 15f;
@@ -38,6 +43,7 @@ public class PlayerData : ScriptableObject
     [Header("Check Variables")]
     public float groundCheckRadius = 0.3f;
     public float wallCheckDistance = 0.5f;
+    public float slopeCheckDistance = 0.3f;
     public LayerMask whatIsGround;
     public LayerMask whatIsWall;
     public LayerMask whatIsClimbWall;

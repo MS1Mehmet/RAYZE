@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 3132606692075104859}
   - component: {fileID: 3132606692075104836}
   - component: {fileID: 3132606692075104837}
-  - component: {fileID: 450153231}
+  - component: {fileID: 185489523}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -224,6 +224,7 @@ MonoBehaviour:
   playerData: {fileID: 11400000, guid: bc20b33a71112b440bf3336158dd513a, type: 2}
   groundCheck: {fileID: 3132606691661846363}
   wallCheck: {fileID: 3132606691279363418}
+  gunPoint: {fileID: 3132606692352388974}
 --- !u!212 &3132606692075104858
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -341,7 +342,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 2.32}
   m_EdgeRadius: 0
---- !u!114 &450153231
+--- !u!114 &185489523
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -350,12 +351,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3132606692075104838}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa4e12c47aea63d40a6f5672ecc6f42c, type: 3}
+  m_Script: {fileID: 11500000, guid: dac9765dac7fee247ad8d43ea49d5b8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultBullet: {fileID: 5729590392193998883, guid: 142c3c0aae9495e4aba1050cc99c62ca,
+  defaultBullet: {fileID: 5729590392193998883, guid: 142c3c0aae9495e4aba1050cc99c62ca,
     type: 3}
-  GunPoint: {fileID: 3132606692352388974}
 --- !u!1 &3132606692352388975
 GameObject:
   m_ObjectHideFlags: 0

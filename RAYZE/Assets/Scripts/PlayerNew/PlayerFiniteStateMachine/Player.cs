@@ -28,7 +28,9 @@ public class Player : MonoBehaviour
     public Animator Anim { get; private set; }
     public PlayerInputHandler InputHandler { get; private set; }
     public Rigidbody2D RB { get; private set; }
-    public Weapon Weapon { get; private set; }
+    public BoxCollider2D BC { get; private set; }
+    public Renderer Rend { get; private set; }
+    public WeaponInventory WI { get; private set; }
     #endregion
 
     #region Check Transform
@@ -38,6 +40,9 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private Transform wallCheck;
+
+    [SerializeField]
+    private Transform gunPoint;
     #endregion
 
     #region Other Variables
@@ -45,6 +50,15 @@ public class Player : MonoBehaviour
     public int FacingDirection { get; private set; }
 
     private Vector2 workspace;
+    private Vector2 colliderSize;
+    private Vector2 slopeNormalperp;
+
+    public bool isOnSlope;
+    private float slopeDownAngleOld;
+    private float slopeDownAngle;
+
+    private GameObject bullet;
+    private Color defaultcolor;
 
     public bool isHit { get; private set; }
     public bool isDeath { get; private set; }
@@ -73,10 +87,15 @@ public class Player : MonoBehaviour
         Anim = GetComponent<Animator>();
         InputHandler = GetComponent<PlayerInputHandler>();
         RB = GetComponent<Rigidbody2D>();
-        Weapon = GetComponent<Weapon>();
+        BC = GetComponent<BoxCollider2D>();
+        Rend = GetComponent<Renderer>();
+        WI = GetComponent<WeaponInventory>();
 
+        colliderSize = BC.size;
+        SlopeCheck();
         FacingDirection = 1;
         StateMachine.Initialize(IdleState);
+        defaultcolor = Rend.material.color;
         isHit = false;
         isDeath = false;
     }
@@ -131,14 +150,14 @@ public class Player : MonoBehaviour
         CurrentVelocity = Vector2.zero;
     }
 
+    public void SetZeroFriction() => RB.sharedMaterial = playerData.noFriction;
+    public void SetFullFriction() => RB.sharedMaterial = playerData.fullFriction;
+
     public void GotHit() => isHit = true;
 
     public void StopHit() => isHit = false;
 
-    public void SetDeath(bool state)
-    {
-        isDeath = state;
-    }
+    public void SetDeath(bool state) => isDeath = state;
     #endregion
 
     #region Check Functions
@@ -172,7 +191,27 @@ public class Player : MonoBehaviour
             Flip();
         }
     }
+    public void SlopeCheck()
+    {
+        Vector2 checkPos = transform.position - new Vector3(0.0f, colliderSize.y / 2);
+        SlopeCheckVertical(checkPos);
+    }
 
+    public void SlopeCheckVertical(Vector2 checkPos)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(checkPos, Vector2.down, playerData.slopeCheckDistance, playerData.whatIsGround);
+        if (hit)
+        {
+            slopeNormalperp = Vector2.Perpendicular(hit.normal);
+            slopeDownAngle = Vector2.Angle(hit.normal, Vector2.up);
+
+            if (slopeDownAngle != slopeDownAngleOld)
+            {
+                isOnSlope = true;
+            }
+            slopeDownAngleOld = slopeDownAngle;
+        }
+    }
     #endregion
 
     #region Other Functions
@@ -183,6 +222,24 @@ public class Player : MonoBehaviour
     {
         FacingDirection *= -1;
         transform.Rotate(0.0f, 180.0f, 0.0f);
+    }
+
+    public void Shoot()
+    {
+        Vector2 vector2 = new Vector2(1,0);
+        bullet = Instantiate(WI.defaultBullet, gunPoint.position, Quaternion.identity);
+        bullet.GetComponent<Rigidbody2D>().velocity = (vector2 * FacingDirection) * 20f;
+    }
+
+    private IEnumerator Invincibil()
+    {
+        Physics2D.IgnoreLayerCollision(8,10, true);
+        defaultcolor.a = 0.5f;
+        Rend.material.color = defaultcolor;
+        yield return new WaitForSeconds(playerData.invincibilTime);
+        Physics2D.IgnoreLayerCollision(8, 10, false);
+        defaultcolor.a = 1f;
+        Rend.material.color = defaultcolor;
     }
     #endregion
 }
