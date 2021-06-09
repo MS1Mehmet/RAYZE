@@ -14,6 +14,7 @@ public class EnemyFollowPlayerShoot : MonoBehaviour
     
     public float fireRate = 1f;
     public float nextFireTime;
+    [SerializeField]
     private bool facingLeft = false;
     Animator animator;
 
@@ -65,6 +66,7 @@ public class EnemyFollowPlayerShoot : MonoBehaviour
             //idleState();
         }
         */
+        
     }
 
     private void runTowardsPlayer() 
