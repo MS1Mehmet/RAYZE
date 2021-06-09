@@ -92,7 +92,6 @@ public class Player : MonoBehaviour
         StateMachine.CurrentState.PhysicsUpdate();
     }
 
-   /*
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy") && isHit == false && !isDeath)
@@ -100,7 +99,6 @@ public class Player : MonoBehaviour
             GotHit();
         }
     }
-   */
 
     #endregion
 
@@ -187,4 +185,16 @@ public class Player : MonoBehaviour
         transform.Rotate(0.0f, 180.0f, 0.0f);
     }
     #endregion
+
+    public float health = 100;
+    public void TakeDamege(float damage) 
+    {
+        health -= damage;
+        Debug.Log("HIT DMG taken");
+        if(health <= 0) 
+        {
+            Debug.Log("dead");
+            //Destroy(gameObject);
+        }
+    }
 }

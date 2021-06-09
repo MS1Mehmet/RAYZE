@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: playerData
   m_EditorClassIdentifier: 
   playerMaxHealth: 100
-  playerCurrentHealth: 30
+  playerCurrentHealth: 100
   hitVelocity: 15
   hitAngle: {x: 1, y: 2}
   deathTime: 3

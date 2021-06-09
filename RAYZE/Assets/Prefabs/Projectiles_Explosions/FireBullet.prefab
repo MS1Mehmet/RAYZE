@@ -168,7 +168,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 510dccc4e0ae7084bbe4a96e64a36362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  expls_a: {fileID: 0}
   freezeEnemy: 0
   scorePoints: 500
   currentHealth: 50

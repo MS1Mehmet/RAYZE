@@ -24,7 +24,7 @@ public class PlayerDamageState : PlayerState
         if (!player.isDeath && player.isHit)
         {
             // Hier Enemy Damage übergeben
-           // playerData.playerCurrentHealth -= 10;
+            playerData.playerCurrentHealth -= 10;
             player.SetVelocity(playerData.hitVelocity, playerData.hitAngle, player.FacingDirection * -1);
         }
     }
@@ -65,11 +65,5 @@ public class PlayerDamageState : PlayerState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-    }
-
-
-    public void PlayerTakeDamage(int damage)
-    {
-        playerData.playerCurrentHealth -= damage;
     }
 }
