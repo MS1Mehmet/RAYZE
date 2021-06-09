@@ -64,6 +64,7 @@ public class PlayerInAirState : PlayerState
             }
         else if (isGrounded && player.CurrentVelocity.y < 0.01f)
         {
+            player.CreateDust();
             if (xInput != 0)
             {
                 stateMachine.ChangeState(player.MoveState);
