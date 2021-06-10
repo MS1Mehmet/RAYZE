@@ -14,6 +14,7 @@ public class PlayerWallSlideState : PlayerTouchingWallState
         base.LogicUpdate();
 
         player.SetVelocityY(-playerData.wallSlideVelocity);
+        player.CreateWallDust();
         
             if (grabInput && !isExitingState && isTouchingClimbWall)
             {

@@ -5,6 +5,8 @@ using UnityEngine.Rendering;
 
 public class Player : MonoBehaviour
 {
+    public ParticleSystem dust;
+    public ParticleSystem walldust;
     #region State Variables
     public PlayerStateMachine StateMachine { get; private set; }
 
@@ -38,6 +40,8 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private Transform wallCheck;
+
+    public GameObject currentCheckpoint;
     #endregion
 
     #region Other Variables
@@ -175,6 +179,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void Respawn()
+    {
+        transform.position = currentCheckpoint.transform.position;
+    }
+
     #endregion
 
     #region Other Functions
@@ -183,8 +192,19 @@ public class Player : MonoBehaviour
     private void AnimationFinishTrigger() => StateMachine.CurrentState.AnimationFinishTrigger();
     private void Flip()
     {
+        
         FacingDirection *= -1;
         transform.Rotate(0.0f, 180.0f, 0.0f);
     }
     #endregion
+
+    public void CreateDust()
+    {
+        dust.Play();
+    }
+
+    public void CreateWallDust()
+    {
+        walldust.Play();
+    }
 }

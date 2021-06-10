@@ -34,6 +34,7 @@ public class PlayerDeathState : PlayerState
         {
             playerData.playerCurrentHealth = playerData.playerMaxHealth;
             player.SetDeath(false);
+            player.Respawn();
             stateMachine.ChangeState(player.IdleState);
         }
     }
