@@ -40,6 +40,8 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private Transform wallCheck;
+
+    public GameObject currentCheckpoint;
     #endregion
 
     #region Other Variables
@@ -175,6 +177,11 @@ public class Player : MonoBehaviour
         {
             Flip();
         }
+    }
+
+    public void Respawn()
+    {
+        transform.position = currentCheckpoint.transform.position;
     }
 
     #endregion
