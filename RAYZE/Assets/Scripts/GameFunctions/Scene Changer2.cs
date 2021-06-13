@@ -17,6 +17,6 @@ public class SceneChanger2 : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        SceneChanger2.LoadScene
+      //  SceneChanger2.LoadScene
     }
 }
