@@ -18,7 +18,6 @@ public class Player : MonoBehaviour
     public PlayerWallJumpState WallJumpState { get; private set; }
     public PlayerDamageState DamageState { get; private set; }
     public PlayerDeathState DeathState { get; private set; }
-    public PlayerAttackState AttackState { get; private set; }
 
     [SerializeField]
     private PlayerData playerData;
@@ -43,6 +42,9 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private Transform gunPoint;
+
+    [SerializeField]
+    private Transform gunPointUp;
     #endregion
 
     #region Other Variables
@@ -59,6 +61,7 @@ public class Player : MonoBehaviour
 
     private GameObject bullet;
     private Color defaultcolor;
+    public bool coolDownActiv;
 
     public bool isHit { get; private set; }
     public bool isDeath { get; private set; }
@@ -79,7 +82,6 @@ public class Player : MonoBehaviour
         WallJumpState = new PlayerWallJumpState(this, StateMachine, playerData, "inAir");
         DamageState = new PlayerDamageState(this, StateMachine, playerData, "damage");
         DeathState = new PlayerDeathState(this, StateMachine, playerData, "death");
-        AttackState = new PlayerAttackState(this, StateMachine, playerData, "attack");
     }
 
     private void Start()
@@ -98,6 +100,7 @@ public class Player : MonoBehaviour
         defaultcolor = Rend.material.color;
         isHit = false;
         isDeath = false;
+        coolDownActiv = false;
     }
 
     private void Update()
@@ -116,6 +119,15 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy") && isHit == false && !isDeath)
         {
             GotHit();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        IUpgradeables upgradeables = collision.GetComponent<IUpgradeables>();
+        if (upgradeables != null)
+        {
+            upgradeables.Upgrade();
         }
     }
 
@@ -224,11 +236,25 @@ public class Player : MonoBehaviour
         transform.Rotate(0.0f, 180.0f, 0.0f);
     }
 
-    public void Shoot()
+    public void Shoot(bool UpLooking)
     {
-        Vector2 vector2 = new Vector2(1,0);
-        bullet = Instantiate(WI.defaultBullet, gunPoint.position, Quaternion.identity);
-        bullet.GetComponent<Rigidbody2D>().velocity = (vector2 * FacingDirection) * 20f;
+        if (!coolDownActiv)
+        {
+            if (UpLooking)
+            {
+                Vector2 vector2 = new Vector2(0, 1);
+                bullet = Instantiate(WI.defaultBullet, gunPointUp.position, Quaternion.identity);
+                bullet.transform.Rotate(0.0f, 0.0f, 90.0f);
+                bullet.GetComponent<Rigidbody2D>().velocity = vector2 * playerData.weaponSpeed;
+            }
+            else
+            {
+                Vector2 vector2 = new Vector2(1, 0);
+                bullet = Instantiate(WI.defaultBullet, gunPoint.position, Quaternion.identity);
+                bullet.GetComponent<Rigidbody2D>().velocity = (vector2 * FacingDirection) * playerData.weaponSpeed;
+            }
+            StartCoroutine("CoolDown");
+        }
     }
 
     private IEnumerator Invincibil()
@@ -240,6 +266,13 @@ public class Player : MonoBehaviour
         Physics2D.IgnoreLayerCollision(8, 10, false);
         defaultcolor.a = 1f;
         Rend.material.color = defaultcolor;
+    }
+
+    private IEnumerator CoolDown()
+    {
+        coolDownActiv = true;
+        yield return new WaitForSeconds(playerData.weaponCoolDown);
+        coolDownActiv = false;
     }
     #endregion
 }

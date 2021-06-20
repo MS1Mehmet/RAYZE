@@ -16,6 +16,7 @@ public class PlayerIdleState : PlayerGroundedState
     public override void Enter()
     {
         base.Enter();
+        //Spieler anhalten
         player.SetVelocityX(0f);
     }
 
@@ -30,17 +31,33 @@ public class PlayerIdleState : PlayerGroundedState
 
         if (!isExitingState) 
         {
+            //Switcht zur MoveState
             if (xInput != 0f)
             {
                 stateMachine.ChangeState(player.MoveState);
             }
-            else if (yInput != 0f)
-            {
-                player.Anim.SetFloat("yInput", yInput);
-            }
+            //Hauptfunktion in der IdleState
             else
             {
-                player.Anim.SetFloat("yInput", 0f);
+                player.Anim.SetFloat("yInput", yInput);
+                //Schießenabfrage
+                if (attackInput)
+                {
+                    if (yInput == 1)
+                    {
+                        player.Shoot(true);
+                    }
+                    else if (!anispamstop)
+                    {
+                        player.Anim.SetFloat("attackInput", 1f);
+                        player.Shoot(false);
+                    }
+                }
+                else
+                {
+                    player.Anim.SetFloat("attackInput", 0f);
+                    anispamstop = player.coolDownActiv;
+                }
             }
         }
     }

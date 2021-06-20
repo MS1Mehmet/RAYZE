@@ -16,7 +16,7 @@ public class PlayerDeathState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        //player.StopHit();
+        player.StopHit();
         player.SetDeath(true);
         player.SetVelocityZero();
         

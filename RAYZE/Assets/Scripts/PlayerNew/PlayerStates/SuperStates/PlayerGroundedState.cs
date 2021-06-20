@@ -8,12 +8,14 @@ public class PlayerGroundedState : PlayerState
     //Input Variablen
     protected int xInput;
     protected int yInput;
+    protected bool attackInput;
 
     private bool jumpInput;
     private bool grabInput;
-    private bool attackInput;
 
     //Check Variablen
+    protected bool anispamstop;
+
     private bool isGrounded;
     private bool isTouchingClimbWall;
     #endregion
@@ -52,23 +54,25 @@ public class PlayerGroundedState : PlayerState
         grabInput = player.InputHandler.GrabInput;
         attackInput = player.InputHandler.AttackInput;
 
-        if (attackInput)
-        {
-            stateMachine.ChangeState(player.AttackState);
-        }
-        else if (player.isHit)
+        //Switcht zur DamageState
+        if (player.isHit)
         {
             stateMachine.ChangeState(player.DamageState);
         }
+        //Switcht zur JumpState
         else if (jumpInput && player.JumpState.CanJump())
         {
             player.InputHandler.UseJumpInput();
             stateMachine.ChangeState(player.JumpState);
-        } else if (!isGrounded) 
+        }
+        //Switcht zur InAirState
+        else if (!isGrounded) 
         {
             player.JumpState.DecreaseAmountOfJumpsLeft();
             stateMachine.ChangeState(player.InAirState);
-        } else if (isTouchingClimbWall && grabInput)
+        }
+        //Switcht zur WallGrabState
+        else if (isTouchingClimbWall && grabInput)
         {
             stateMachine.ChangeState(player.WallGrabState);
         }

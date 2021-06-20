@@ -27,24 +27,39 @@ public class PlayerMoveState : PlayerGroundedState
     {
         base.LogicUpdate();
 
+        //Checken ob Spieler sich dreht
         player.CheckIfShouldFlip(xInput);
 
         if (!isExitingState)
         {
+            //Switcht zur IdleState
             if (xInput == 0f)
             {
                 stateMachine.ChangeState(player.IdleState);
             }
+            //Hauptfunktion in der MoveState
             else
             {
+                //Spielergeschwindigkeit
                 player.SetVelocityX(playerData.movementVelocity * xInput);
-                if (yInput != 0f)
+                player.Anim.SetFloat("yInput", yInput);
+                //Schießenabfrage
+                if (attackInput)
                 {
-                    player.Anim.SetFloat("yInput", yInput);
+                    if (yInput == 1)
+                    {
+                        player.Shoot(true);
+                    }
+                    else if (!anispamstop)
+                    {
+                        player.Anim.SetFloat("attackInput", 1f);
+                        player.Shoot(false);
+                    }
                 }
                 else
                 {
-                    player.Anim.SetFloat("yInput", 0f);
+                    player.Anim.SetFloat("attackInput", 0f);
+                    anispamstop = player.coolDownActiv;
                 }
             }
         }

@@ -12,12 +12,15 @@ public class PlayerData : ScriptableObject
     public int playerMaxHealth = 100;
     public int playerCurrentHealth = 100;
 
+    [Header("Weapon")]
+    public float weaponCoolDown = 2f;
+    public int weaponDamage = 5;
+    public float weaponSpeed = 20f;
+
     [Header("Damage and Death State")]
     public float hitVelocity = 40f;
     public Vector2 hitAngle = new Vector2(4, 4);
     public float deathTime = 10f;
-    public int numberOfFlashes = 3;
-    public float flashTime = 2f;
     public float invincibilTime = 5f;
 
     [Header("Move State")]
