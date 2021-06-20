@@ -54,6 +54,8 @@ public class PlayerGroundedState : PlayerState
         grabInput = player.InputHandler.GrabInput;
         attackInput = player.InputHandler.AttackInput;
 
+        player.SlopeCheck();
+
         //Switcht zur DamageState
         if (player.isHit)
         {
@@ -75,6 +77,14 @@ public class PlayerGroundedState : PlayerState
         else if (isTouchingClimbWall && grabInput)
         {
             stateMachine.ChangeState(player.WallGrabState);
+        }
+        if (player.isOnSlope && xInput == 0)
+        {
+            player.SetFullFriction();
+        }
+        else
+        {
+            player.SetZeroFriction();
         }
     }
 

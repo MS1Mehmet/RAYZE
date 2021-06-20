@@ -16,10 +16,10 @@ public class PlayerDeathState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        player.StopHit();
+        player.SetZeroFriction();
+        player.SetTakenHit(false);
         player.SetDeath(true);
         player.SetVelocityZero();
-        
     }
 
     public override void Exit()
@@ -29,6 +29,7 @@ public class PlayerDeathState : PlayerState
 
     public override void LogicUpdate()
     {
+        player.SetVelocityZero();
         base.LogicUpdate();
         if (Time.time >= startTime + playerData.deathTime)
         {

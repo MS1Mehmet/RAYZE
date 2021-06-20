@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     public PlayerInAirState InAirState { get; private set; }
     public PlayerWallSlideState WallSlideState { get; private set; }
     public PlayerWallGrabState WallGrabState { get; private set; }
-    public PlayerWallClimbState WallClimbState { get; private set; }
+    //public PlayerWallClimbState WallClimbState { get; private set; } //[Animationen fehlen]
     public PlayerWallJumpState WallJumpState { get; private set; }
     public PlayerDamageState DamageState { get; private set; }
     public PlayerDeathState DeathState { get; private set; }
@@ -53,7 +53,6 @@ public class Player : MonoBehaviour
 
     private Vector2 workspace;
     private Vector2 colliderSize;
-    private Vector2 slopeNormalperp;
 
     public bool isOnSlope;
     private float slopeDownAngleOld;
@@ -78,7 +77,7 @@ public class Player : MonoBehaviour
         InAirState = new PlayerInAirState(this, StateMachine, playerData, "inAir");
         WallSlideState = new PlayerWallSlideState(this, StateMachine, playerData, "wallSlide");
         WallGrabState = new PlayerWallGrabState(this, StateMachine, playerData, "wallSlide");
-        WallClimbState = new PlayerWallClimbState(this, StateMachine, playerData, "wallClimb");
+        //WallClimbState = new PlayerWallClimbState(this, StateMachine, playerData, "wallClimb"); // Siehe oben
         WallJumpState = new PlayerWallJumpState(this, StateMachine, playerData, "inAir");
         DamageState = new PlayerDamageState(this, StateMachine, playerData, "damage");
         DeathState = new PlayerDeathState(this, StateMachine, playerData, "death");
@@ -94,13 +93,13 @@ public class Player : MonoBehaviour
         WI = GetComponent<WeaponInventory>();
 
         colliderSize = BC.size;
-        SlopeCheck();
         FacingDirection = 1;
         StateMachine.Initialize(IdleState);
         defaultcolor = Rend.material.color;
         isHit = false;
         isDeath = false;
         coolDownActiv = false;
+        isOnSlope = false;
     }
 
     private void Update()
@@ -118,7 +117,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy") && isHit == false && !isDeath)
         {
-            GotHit();
+            SetTakenHit(true);
         }
     }
 
@@ -165,9 +164,7 @@ public class Player : MonoBehaviour
     public void SetZeroFriction() => RB.sharedMaterial = playerData.noFriction;
     public void SetFullFriction() => RB.sharedMaterial = playerData.fullFriction;
 
-    public void GotHit() => isHit = true;
-
-    public void StopHit() => isHit = false;
+    public void SetTakenHit(bool state) => isHit = state;
 
     public void SetDeath(bool state) => isDeath = state;
     #endregion
@@ -206,36 +203,31 @@ public class Player : MonoBehaviour
     public void SlopeCheck()
     {
         Vector2 checkPos = transform.position - new Vector3(0.0f, colliderSize.y / 2);
-        SlopeCheckVertical(checkPos);
-    }
-
-    public void SlopeCheckVertical(Vector2 checkPos)
-    {
         RaycastHit2D hit = Physics2D.Raycast(checkPos, Vector2.down, playerData.slopeCheckDistance, playerData.whatIsGround);
         if (hit)
         {
-            slopeNormalperp = Vector2.Perpendicular(hit.normal);
             slopeDownAngle = Vector2.Angle(hit.normal, Vector2.up);
 
-            if (slopeDownAngle != slopeDownAngleOld)
+            if (slopeDownAngle != 0.0f)
             {
                 isOnSlope = true;
             }
-            slopeDownAngleOld = slopeDownAngle;
+            else
+            {
+                isOnSlope = false;
+            }
         }
     }
     #endregion
 
     #region Other Functions
     private void AnimationTrigger() => StateMachine.CurrentState.AnimationTrigger();
-
     private void AnimationFinishTrigger() => StateMachine.CurrentState.AnimationFinishTrigger();
     private void Flip()
     {
         FacingDirection *= -1;
         transform.Rotate(0.0f, 180.0f, 0.0f);
     }
-
     public void Shoot(bool UpLooking)
     {
         if (!coolDownActiv)
@@ -256,13 +248,24 @@ public class Player : MonoBehaviour
             StartCoroutine("CoolDown");
         }
     }
+    #endregion
 
+    #region IEnumerator
     private IEnumerator Invincibil()
     {
         Physics2D.IgnoreLayerCollision(8,10, true);
         defaultcolor.a = 0.5f;
         Rend.material.color = defaultcolor;
         yield return new WaitForSeconds(playerData.invincibilTime);
+        for (int x = 0; x <= 3; x++)
+        {
+            defaultcolor.a = 1f;
+            Rend.material.color = defaultcolor;
+            yield return new WaitForSeconds(0.1f);
+            defaultcolor.a = 0.5f;
+            Rend.material.color = defaultcolor;
+            yield return new WaitForSeconds(0.1f);
+        }
         Physics2D.IgnoreLayerCollision(8, 10, false);
         defaultcolor.a = 1f;
         Rend.material.color = defaultcolor;

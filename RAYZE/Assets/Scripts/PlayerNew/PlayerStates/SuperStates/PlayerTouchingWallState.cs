@@ -37,6 +37,7 @@ public class PlayerTouchingWallState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        player.SetZeroFriction();
     }
 
     public override void Exit()

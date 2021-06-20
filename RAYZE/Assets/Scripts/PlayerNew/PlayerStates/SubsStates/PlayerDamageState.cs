@@ -21,6 +21,7 @@ public class PlayerDamageState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        player.SetZeroFriction();
         if (!player.isDeath && player.isHit)
         {
             // Hier Enemy Damage übergeben
@@ -66,5 +67,15 @@ public class PlayerDamageState : PlayerState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+    }
+    public override void AnimationFinishTrigger()
+    {
+        base.AnimationFinishTrigger();
+        player.SetTakenHit(false);
+    }
+
+    public override void AnimationTrigger()
+    {
+        base.AnimationTrigger();
     }
 }
