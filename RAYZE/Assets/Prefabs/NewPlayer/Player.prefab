@@ -77,6 +77,7 @@ GameObject:
   - component: {fileID: 3132606692075104836}
   - component: {fileID: 3132606692075104837}
   - component: {fileID: 450153231}
+  - component: {fileID: -1892202990334101765}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -221,9 +222,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea5ed264dd9ee10499d406b83108d0f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dust: {fileID: 0}
+  walldust: {fileID: 0}
   playerData: {fileID: 11400000, guid: bc20b33a71112b440bf3336158dd513a, type: 2}
   groundCheck: {fileID: 3132606691661846363}
   wallCheck: {fileID: 3132606691279363418}
+  currentCheckpoint: {fileID: 0}
 --- !u!212 &3132606692075104858
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -262,7 +266,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -791285791
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: b252c5944d39bc145b5d6b8f0da81dd1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -356,6 +360,20 @@ MonoBehaviour:
   DefaultBullet: {fileID: 5729590392193998883, guid: 142c3c0aae9495e4aba1050cc99c62ca,
     type: 3}
   GunPoint: {fileID: 3132606692352388974}
+  player: {fileID: 0}
+  bullet: {fileID: 0}
+--- !u!114 &-1892202990334101765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3132606692075104838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dda4f8daa9802d044b298d9b4efa91c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3132606692352388975
 GameObject:
   m_ObjectHideFlags: 0
