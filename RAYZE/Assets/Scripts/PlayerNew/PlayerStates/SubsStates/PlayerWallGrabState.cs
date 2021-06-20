@@ -45,11 +45,12 @@ public class PlayerWallGrabState : PlayerTouchingWallState
 
         if (!isExitingState)
         {
-            if (yInput > 0)
-            {
-                stateMachine.ChangeState(player.WallClimbState);
-            }
-            else if (yInput < 0 || !grabInput)
+            /* if (yInput > 0)
+             {
+                 stateMachine.ChangeState(player.WallClimbState);
+             }
+             else*/
+            if (yInput < 0 || !grabInput)
             {
                 stateMachine.ChangeState(player.WallSlideState);
             }

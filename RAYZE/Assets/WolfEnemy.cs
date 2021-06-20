@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WolfEnemy : MonoBehaviour
+public class WolfEnemy : MonoBehaviour, IDamageable
 {
     [SerializeField]
     public Player playerScr;
@@ -138,7 +138,7 @@ public class WolfEnemy : MonoBehaviour
     {
         EnemyAnimation.Play("Wolf-bite");
 
-        if (canAttack && timeBtwAttack <=0 )
+        if (canAttack && timeBtwAttack <=0 && !playerScr.isInvincibil)
             {
                 Collider2D[] playerToDmg = Physics2D.OverlapBoxAll(attackPos.position, new Vector2(attackX, attackY), 0, whatAttacking);
                 for (int i = 0; i < playerToDmg.Length; i++)
@@ -146,7 +146,7 @@ public class WolfEnemy : MonoBehaviour
                  // playerToDmg[i].GetComponent<PlayerDamageState>().PlayerTakeDamage(Hitdamage);
                 
                 playerScr.DamageState.PlayerTakeDamage(Hitdamage);
-                playerScr.GotHit();
+                playerScr.SetTakenHit(true);
                 Debug.Log(Hitdamage);
                 }
            
@@ -235,8 +235,11 @@ public class WolfEnemy : MonoBehaviour
         
     }
 
-
-
+    public void Damage(int amount)
+    {
+        Debug.Log("Wolf getroffen");
+        //throw new System.NotImplementedException();
+    }
 }
 
 

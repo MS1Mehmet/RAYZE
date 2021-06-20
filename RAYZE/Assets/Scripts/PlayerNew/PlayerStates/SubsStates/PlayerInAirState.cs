@@ -5,18 +5,23 @@ using UnityEngine;
 
 public class PlayerInAirState : PlayerState
 {
-
-    private bool isGrounded;
+    #region Variablen
+    //Input Variablen
     private int xInput;
     private int yInput;
     private bool jumpInput;
     private bool jumpInputStop;
+    private bool grabInput;
+    private bool attackInput;
+
+    //Check Variablen
+    private bool isGrounded;
     private bool isJumping;
     private bool isTouchingWall;
     private bool isTouchingWallBack;
     private bool isTouchingClimbWall;
     private bool isTouchingClimbWallBack;
-    private bool grabInput;
+    #endregion
     public PlayerInAirState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
     }
@@ -35,6 +40,7 @@ public class PlayerInAirState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        player.SetZeroFriction();
     }
 
     public override void Exit()
@@ -51,59 +57,78 @@ public class PlayerInAirState : PlayerState
         jumpInput = player.InputHandler.JumpInput;
         jumpInputStop = player.InputHandler.JumpInputStop;
         grabInput = player.InputHandler.GrabInput;
+        attackInput = player.InputHandler.AttackInput;
 
         checkJumpMultiplier();
 
-        if (player.InputHandler.AttackInput)
+        //Switcht zur DamageState
+        if (player.isHit)
         {
-            stateMachine.ChangeState(player.AttackState);
+            stateMachine.ChangeState(player.DamageState);
         }
-        if(player.isHit)
-            {
-                stateMachine.ChangeState(player.DamageState);
-            }
+        //GroundedState
         else if (isGrounded && player.CurrentVelocity.y < 0.01f)
         {
             player.CreateDust();
+            //Switcht zur MoveState
             if (xInput != 0)
             {
                 stateMachine.ChangeState(player.MoveState);
             }
+            //Switcht zur IdleState
             else
             {
                 stateMachine.ChangeState(player.IdleState);
             }
         }
+        //Switcht zur WallJumpState [Normale Wand]
         else if (jumpInput && (isTouchingWall || isTouchingWallBack))
         {
             player.WallJumpState.DetermineWallJumpDirection(isTouchingWall);
             stateMachine.ChangeState(player.WallJumpState);
         }
+        //Switcht zur WallJumpState [Kletterbare Wand]
         else if (jumpInput && (isTouchingClimbWall || isTouchingClimbWallBack))
         {
             player.WallJumpState.DetermineWallJumpDirection(isTouchingClimbWall);
             stateMachine.ChangeState(player.WallJumpState);
         }
+        //Switcht zur JumpState
         else if (jumpInput && player.JumpState.CanJump())
         {
             player.InputHandler.UseJumpInput();
             stateMachine.ChangeState(player.JumpState);
         }
+        //Switcht zur WallGrabState [Kletterbare Wand]
         else if (isTouchingClimbWall && grabInput)
         {
             stateMachine.ChangeState(player.WallGrabState);
         }
+        //Switcht zur WallSlideState [Normale | Kletterbare Wand]
         else if ((isTouchingWall || isTouchingClimbWall) && xInput == player.FacingDirection && player.CurrentVelocity.y <= 0)
         {
             stateMachine.ChangeState(player.WallSlideState);
         }
+        //Hauptfunktion in der InAirState
         else
         {
             player.CheckIfShouldFlip(xInput);
             player.SetVelocityX(playerData.movementVelocity * xInput);
-            
+
             player.Anim.SetFloat("yVelocity", player.CurrentVelocity.y);
             player.Anim.SetFloat("yInput", yInput);
+            //Schießenabfrage
+            if (attackInput)
+            {
+                if (yInput == 1)
+                {
+                    player.Shoot(true);
+                }
+                else
+                {
+                    player.Shoot(false);
+                }
+            }
         }
     }
     

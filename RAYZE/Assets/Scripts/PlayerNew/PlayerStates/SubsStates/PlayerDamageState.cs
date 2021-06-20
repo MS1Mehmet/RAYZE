@@ -21,11 +21,13 @@ public class PlayerDamageState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        player.SetZeroFriction();
         if (!player.isDeath && player.isHit)
         {
             // Hier Enemy Damage übergeben
            // playerData.playerCurrentHealth -= 10;
             player.SetVelocity(playerData.hitVelocity, playerData.hitAngle, player.FacingDirection * -1);
+            player.StartCoroutine("Invincibil");
         }
     }
 
@@ -67,6 +69,16 @@ public class PlayerDamageState : PlayerState
         base.PhysicsUpdate();
     }
 
+    public override void AnimationFinishTrigger()
+    {
+        base.AnimationFinishTrigger();
+        player.SetTakenHit(false);
+    }
+
+    public override void AnimationTrigger()
+    {
+        base.AnimationTrigger();
+    }
 
     public void PlayerTakeDamage(int damage)
     {

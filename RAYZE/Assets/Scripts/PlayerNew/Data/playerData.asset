@@ -13,11 +13,17 @@ MonoBehaviour:
   m_Name: playerData
   m_EditorClassIdentifier: 
   playerMaxHealth: 100
-  playerCurrentHealth: 30
+  playerCurrentHealth: 100
+  weaponCoolDown: 0.5
+  weaponDamage: 5
+  weaponSpeed: 25
   hitVelocity: 15
   hitAngle: {x: 1, y: 2}
   deathTime: 3
+  invincibilTime: 1.5
   movementVelocity: 10
+  noFriction: {fileID: 6200000, guid: 14d43cf4700eb3d44975ca0cf794cf74, type: 2}
+  fullFriction: {fileID: 6200000, guid: 5ef5364214e68ed47b0a04b25dcc1b6d, type: 2}
   jumpVelocity: 20
   amountOfJumps: 2
   wallJumpVelocity: 20
@@ -27,6 +33,7 @@ MonoBehaviour:
   wallSlideVelocity: 0.5
   groundCheckRadius: 0.4
   wallCheckDistance: 0.62
+  slopeCheckDistance: 0.8
   whatIsGround:
     serializedVersion: 2
     m_Bits: 512

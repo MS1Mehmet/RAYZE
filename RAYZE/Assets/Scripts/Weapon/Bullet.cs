@@ -7,29 +7,27 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField]
-    private float speed = 15f;
-
-    public Rigidbody2D rb;
-
-    public Bullet()
-    {
-    }
+    private PlayerData playerData;
+    [SerializeField]
+    private Animator Anim;
 
     public void Start()
     {
+        Anim.SetBool("Start", true);
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision);
+        IDamageable damageable = collision.GetComponent<IDamageable>();
+        if (damageable != null)
+        {
+            damageable.Damage(playerData.weaponDamage);
+        }
         Destroy(gameObject);
     }
-    public void ShootRight()
+
+    private void BulletAnimationsFinish()
     {
-        rb.velocity = Vector2.right * speed;
-    }
-    public void ShootLeft()
-    {
-        rb.velocity = Vector2.left * speed;
+        Anim.SetBool("Start", false);
+        Anim.SetBool("Idle", true);
     }
 }
