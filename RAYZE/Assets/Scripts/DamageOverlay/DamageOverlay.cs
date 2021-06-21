@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class DamageOverlay : MonoBehaviour
 {
     [SerializeField] Image image;
-    bool isVisible = true;
+
     // Start is called before the first frame update
     void Start()
     {
