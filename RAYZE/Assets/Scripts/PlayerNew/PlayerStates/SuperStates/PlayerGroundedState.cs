@@ -18,6 +18,7 @@ public class PlayerGroundedState : PlayerState
 
     private bool isGrounded;
     private bool isTouchingClimbWall;
+    protected bool isPlattform;
     #endregion
 
     public PlayerGroundedState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
@@ -30,6 +31,7 @@ public class PlayerGroundedState : PlayerState
 
         isGrounded = player.CheckIfGrounded();
         isTouchingClimbWall = player.CheckIfTouchingClimbWall();
+        isPlattform = player.CheckIfPlattform();
     }
 
     public override void Enter()
@@ -69,7 +71,7 @@ public class PlayerGroundedState : PlayerState
             stateMachine.ChangeState(player.JumpState);
         }
         //Switcht zur InAirState
-        else if (!isGrounded)
+        else if (!isGrounded && !isPlattform)
         {
             player.JumpState.DecreaseAmountOfJumpsLeft();
             stateMachine.ChangeState(player.InAirState);

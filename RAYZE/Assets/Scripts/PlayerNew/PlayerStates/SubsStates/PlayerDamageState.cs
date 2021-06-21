@@ -7,6 +7,7 @@ public class PlayerDamageState : PlayerState
     private int xInput;
     private int yInput;
     private bool isGrounded;
+    private bool isPlattform;
 
     public PlayerDamageState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
@@ -16,6 +17,7 @@ public class PlayerDamageState : PlayerState
     {
         base.DoChecks();
         isGrounded = player.CheckIfGrounded();
+        isPlattform = player.CheckIfPlattform();
     }
 
     public override void Enter()
@@ -46,7 +48,7 @@ public class PlayerDamageState : PlayerState
         }
         else if (!player.isHit)
         {
-            if (isGrounded && player.CurrentVelocity.y < 0.01f)
+            if ((isGrounded || isPlattform) && player.CurrentVelocity.y < 0.01f)
             {
                 if (xInput != 0)
                 {

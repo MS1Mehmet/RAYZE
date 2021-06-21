@@ -181,6 +181,11 @@ public class Player : MonoBehaviour
         return Physics2D.OverlapCircle(groundCheck.position, playerData.groundCheckRadius, playerData.whatIsGround);
     }
 
+    public bool CheckIfPlattform()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, playerData.groundCheckRadius, playerData.whatIsPlattform);
+    }
+
     public bool CheckIfTouchingWall()
     {
         return Physics2D.Raycast(wallCheck.position, Vector2.right * FacingDirection, playerData.wallCheckDistance, playerData.whatIsWall);
@@ -272,13 +277,18 @@ public class Player : MonoBehaviour
     {
         walldust.Play();
     }
+
+    public void PlayerIgnoreLayer(int IgnoreLayer, bool isIngnoring)
+    {
+        Physics2D.IgnoreLayerCollision(8, IgnoreLayer, isIngnoring);
+    }
     #endregion
 
     #region IEnumerator
     private IEnumerator Invincibil()
     {
         isInvincibil = true;
-        Physics2D.IgnoreLayerCollision(8, 10, true);
+        PlayerIgnoreLayer(10, true);
         defaultcolor.a = 0.5f;
         Rend.material.color = defaultcolor;
         yield return new WaitForSeconds(playerData.invincibilTime);
@@ -292,7 +302,7 @@ public class Player : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
         isInvincibil = false;
-        Physics2D.IgnoreLayerCollision(8, 10, false);
+        PlayerIgnoreLayer(10, false);
         defaultcolor.a = 1f;
         Rend.material.color = defaultcolor;
     }
@@ -302,6 +312,13 @@ public class Player : MonoBehaviour
         coolDownActiv = true;
         yield return new WaitForSeconds(playerData.weaponCoolDown);
         coolDownActiv = false;
+    }
+
+    private IEnumerator IgnorePlattformTimer()
+    {
+        PlayerIgnoreLayer(14, true);
+        yield return new WaitForSeconds(1f);
+        PlayerIgnoreLayer(14, false);
     }
     #endregion
 }

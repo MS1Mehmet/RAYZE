@@ -16,6 +16,7 @@ public class PlayerInAirState : PlayerState
 
     //Check Variablen
     private bool isGrounded;
+    private bool isPlattform;
     private bool isJumping;
     private bool isTouchingWall;
     private bool isTouchingWallBack;
@@ -31,6 +32,7 @@ public class PlayerInAirState : PlayerState
         base.DoChecks();
 
         isGrounded = player.CheckIfGrounded();
+        isPlattform = player.CheckIfPlattform();
         isTouchingWall = player.CheckIfTouchingWall();
         isTouchingWallBack = player.CheckIfTouchingWallBack();
         isTouchingClimbWall = player.CheckIfTouchingClimbWall();
@@ -67,7 +69,7 @@ public class PlayerInAirState : PlayerState
             stateMachine.ChangeState(player.DamageState);
         }
         //GroundedState
-        else if (isGrounded && player.CurrentVelocity.y < 0.01f)
+        else if ((isGrounded || isPlattform) && player.CurrentVelocity.y < 0.01f)
         {
             player.CreateDust();
             //Switcht zur MoveState

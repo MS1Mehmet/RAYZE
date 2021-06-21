@@ -43,3 +43,6 @@ MonoBehaviour:
   whatIsClimbWall:
     serializedVersion: 2
     m_Bits: 8192
+  whatIsPlattform:
+    serializedVersion: 2
+    m_Bits: 16384

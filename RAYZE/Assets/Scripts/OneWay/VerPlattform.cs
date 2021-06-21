@@ -5,7 +5,7 @@ using UnityEngine;
 public class VerPlattform : MonoBehaviour
 {
     [SerializeField]
-    private Player player;
+    private PlayerInputHandler InputHandler;
 
     private PlatformEffector2D effector;
     public float waitTime;
@@ -18,14 +18,12 @@ public class VerPlattform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player.InputHandler.NormInputY == -1)
+        if (InputHandler.NormInputY == -1)
         {
+            Debug.Log("Bin Drin");
             waitTime = 0.5f;
 
-        }
-        if (player.InputHandler.NormInputY == -1)
-        {
-            if(waitTime <= 0)
+            if (waitTime <= 0)
             {
                 effector.rotationalOffset = 150f;
                 waitTime = 0.5f;

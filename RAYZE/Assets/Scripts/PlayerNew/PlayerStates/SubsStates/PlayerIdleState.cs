@@ -58,6 +58,10 @@ public class PlayerIdleState : PlayerGroundedState
                     player.Anim.SetFloat("attackInput", 0f);
                     anispamstop = player.coolDownActiv;
                 }
+                if (yInput == -1 && isPlattform)
+                {
+                    player.StartCoroutine("IgnorePlattformTimer");
+                }
             }
         }
     }

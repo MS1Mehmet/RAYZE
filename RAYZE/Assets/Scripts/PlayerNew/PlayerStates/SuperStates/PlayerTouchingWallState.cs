@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerTouchingWallState : PlayerState
 {
     protected bool isGrounded;
+    protected bool isPlattform;
     protected bool isTouchingWall;
     protected bool isTouchingClimbWall;
     protected int xInput;
@@ -30,6 +31,7 @@ public class PlayerTouchingWallState : PlayerState
         base.DoChecks();
 
         isGrounded = player.CheckIfGrounded();
+        isPlattform = player.CheckIfPlattform();
         isTouchingWall = player.CheckIfTouchingWall();
         isTouchingClimbWall = player.CheckIfTouchingClimbWall();
     }
@@ -57,7 +59,7 @@ public class PlayerTouchingWallState : PlayerState
         {
             stateMachine.ChangeState(player.DamageState);
         }
-        else if (isGrounded && !grabInput)
+        else if ((isGrounded || isPlattform) && !grabInput)
         {
             stateMachine.ChangeState(player.IdleState);
         }
