@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -43,7 +44,8 @@ public class BarHandler : MonoBehaviour
     }
     private void Update()
     {
-        HandleBar(playerData.playerCurrentHealth/100);
+        float currentHealth = Convert.ToSingle(playerData.playerCurrentHealth);
+        HandleBar(playerData.playerCurrentHealth /100f);
 
   
     }
