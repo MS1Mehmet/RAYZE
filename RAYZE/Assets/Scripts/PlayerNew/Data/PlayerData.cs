@@ -51,5 +51,4 @@ public class PlayerData : ScriptableObject
     public LayerMask whatIsWall;
     public LayerMask whatIsClimbWall;
     public LayerMask whatIsPlattform;
-   
 }

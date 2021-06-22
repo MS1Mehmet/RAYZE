@@ -59,13 +59,11 @@ public class Player : MonoBehaviour
     private Vector2 colliderSize;
     
     public bool isOnSlope;
-    private float slopeDownAngleOld;
     private float slopeDownAngle;
 
     private GameObject bullet;
     private Color defaultcolor;
-    public bool coolDownActiv;
-
+    public bool coolDownActiv { get; private set; }
     public bool isHit { get; private set; }
     public bool isDeath { get; private set; }
     public bool isInvincibil { get; private set; }

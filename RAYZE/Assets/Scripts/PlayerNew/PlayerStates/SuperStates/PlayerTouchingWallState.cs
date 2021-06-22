@@ -29,7 +29,6 @@ public class PlayerTouchingWallState : PlayerState
     public override void DoChecks()
     {
         base.DoChecks();
-
         isGrounded = player.CheckIfGrounded();
         isPlattform = player.CheckIfPlattform();
         isTouchingWall = player.CheckIfTouchingWall();
@@ -50,7 +49,6 @@ public class PlayerTouchingWallState : PlayerState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
         xInput = player.InputHandler.NormInputX;
         yInput = player.InputHandler.NormInputY;
         grabInput = player.InputHandler.GrabInput;

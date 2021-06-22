@@ -132,11 +132,11 @@ public class WolfEnemy : MonoBehaviour, IDamageable
             {
                 wolfIdleState();
             }
-
-
         }
-
-        //deathState();
+        else if (playerScr.isDeath)
+        {
+            wolfIdleState();
+        }
     }
     void wolfAttackState()
     {
@@ -246,19 +246,16 @@ public class WolfEnemy : MonoBehaviour, IDamageable
 
     public void Damage(int amount)
     {
-        Debug.Log("Wolf getroffen");
         WolfHealth -= amount;
 
         if (WolfHealth <= 0)
         {
-            Debug.Log("Wolf tot");
             deathState();
         }
         /*else
         {
             EnemyAnimation.Play("hurt");
         }*/
-        //throw new System.NotImplementedException();
     }
 
     private void DestroyWolf()

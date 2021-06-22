@@ -28,7 +28,6 @@ public class PlayerGroundedState : PlayerState
     public override void DoChecks()
     {
         base.DoChecks();
-
         isGrounded = player.CheckIfGrounded();
         isTouchingClimbWall = player.CheckIfTouchingClimbWall();
         isPlattform = player.CheckIfPlattform();
@@ -37,7 +36,6 @@ public class PlayerGroundedState : PlayerState
     public override void Enter()
     {
         base.Enter();
-
         player.JumpState.ResetAmountOfJumpsLeft();
     }
 
@@ -49,7 +47,6 @@ public class PlayerGroundedState : PlayerState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
         xInput = player.InputHandler.NormInputX;
         yInput = player.InputHandler.NormInputY;
         jumpInput = player.InputHandler.JumpInput;
