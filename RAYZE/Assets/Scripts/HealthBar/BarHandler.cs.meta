@@ -3,7 +3,10 @@ guid: c61e57779b9f38049826bc5ea72642f2
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - healthBar: {instanceID: 0}
+  - playerData: {instanceID: 0}
+  - damageOverlay: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

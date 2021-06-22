@@ -54,6 +54,9 @@ public class WolfEnemy : MonoBehaviour, IDamageable
     Rigidbody2D enemyRb;
     float distToPlayer;
 
+    [SerializeField]
+    private int WolfHealth = 25;
+    Collider2D[] enemyCol;
 
     // bool isAttacking 
 
@@ -71,6 +74,7 @@ public class WolfEnemy : MonoBehaviour, IDamageable
         
         enemyRb = GetComponent<Rigidbody2D>();
         EnemyAnimation = GetComponent<Animator>();
+        enemyCol = GetComponents<Collider2D>();
       
 
     }
@@ -78,7 +82,7 @@ public class WolfEnemy : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
-        if (playerDetector && !playerScr.isDeath)
+        if (playerDetector && !playerScr.isDeath && WolfHealth > 0)
         {
             distToPlayer = Vector2.Distance(transform.position, playerDetector.position);
 
@@ -132,7 +136,7 @@ public class WolfEnemy : MonoBehaviour, IDamageable
 
         }
 
-        deathState();
+        //deathState();
     }
     void wolfAttackState()
     {
@@ -205,7 +209,12 @@ public class WolfEnemy : MonoBehaviour, IDamageable
 
     private void deathState()
     {
-
+        EnemyAnimation.Play("Wolf-die");
+        for (int i = 0; i < enemyCol.Length; i++)
+        {
+            enemyCol[i].enabled = false;
+        }
+        Destroy(enemyRb);
     }
 
 
@@ -238,7 +247,23 @@ public class WolfEnemy : MonoBehaviour, IDamageable
     public void Damage(int amount)
     {
         Debug.Log("Wolf getroffen");
+        WolfHealth -= amount;
+
+        if (WolfHealth <= 0)
+        {
+            Debug.Log("Wolf tot");
+            deathState();
+        }
+        /*else
+        {
+            EnemyAnimation.Play("hurt");
+        }*/
         //throw new System.NotImplementedException();
+    }
+
+    private void DestroyWolf()
+    {
+        Destroy(gameObject);
     }
 }
 
