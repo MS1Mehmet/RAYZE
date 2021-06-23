@@ -44,13 +44,14 @@ GameObject:
   - component: {fileID: 641895151433363396}
   - component: {fileID: 641895151433363395}
   - component: {fileID: 641895151433363394}
+  - component: {fileID: 347141196398804884}
   m_Layer: 10
   m_Name: 'Insekt '
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &641895151433363399
 Transform:
   m_ObjectHideFlags: 0
@@ -213,6 +214,22 @@ MonoBehaviour:
   isGrounded: 0
   isWall: 0
   isFacingRight: 1
+--- !u!114 &347141196398804884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 641895151433363393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a4cdadf1389c3541a40b6f336fdd7cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerScr: {fileID: 0}
+  hitDamage: 0
+  health: 0
+  deathExplosion: {fileID: 0}
 --- !u!1 &641895152340234699
 GameObject:
   m_ObjectHideFlags: 0

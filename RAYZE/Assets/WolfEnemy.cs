@@ -151,7 +151,7 @@ public class WolfEnemy : MonoBehaviour, IDamageable
                 
                 playerScr.DamageState.PlayerTakeDamage(Hitdamage);
                 playerScr.SetTakenHit(true);
-                Debug.Log(Hitdamage);
+                
                 }
            
                 timeBtwAttack = startAttack;

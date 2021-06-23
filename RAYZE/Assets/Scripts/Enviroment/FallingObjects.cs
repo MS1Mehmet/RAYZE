@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// By Mehmet Budak
+
 public class FallingObjects : MonoBehaviour
 {
 
+    [SerializeField]
+    public Player playerScr;
 
+    public int Hitdamage = 10;
     Rigidbody2D rb;
-    public int contactDamage;
+    
     Animator animator;
 
 
@@ -25,17 +28,13 @@ public class FallingObjects : MonoBehaviour
         if (collision.tag == "Player")
         {
             rb.isKinematic = false;
-          // Debug.Log("WTF TRIGGER");
+          
             
 
         }
 
       
 
-       // if (collision.tag == "Enemy")
-        //{
-         //   rb.isKinematic = false;
-       // }
     }
 
 
@@ -46,28 +45,25 @@ public class FallingObjects : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)  // Dieser Checkt nun die Kollision mit dem Jeweiligen GameObject!
     {   
-        /*
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            PlayerController player = collision.gameObject.GetComponent<PlayerController>();
-
-            player.HitSide(transform.position.x > player.transform.position.x);     // Auf welcher Seiter der Player getrpffen wird
-            player.TakeDamage(this.contactDamage);
-            SpikeHitSet();
-            Destroy(gameObject, 0.3f);
-        }
-        */
-        if (collision.gameObject.CompareTag("Ground"))
+        
+        if (collision.gameObject.CompareTag("Ground")|| collision.gameObject.CompareTag("Platform"))
         {
             SpikeHitSet();
             Destroy(gameObject,0.3f);
+        }
+        else if (collision.gameObject.CompareTag("Player")) 
+        {
+            playerScr.DamageState.PlayerTakeDamage(Hitdamage);
+            playerScr.SetTakenHit(true);
+            SpikeHitSet();
+            Destroy(gameObject, 0.3f);
         }
 
       
 
 
     }
-    // Update is called once per frame
+  
     void Update()
     {
 

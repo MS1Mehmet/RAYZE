@@ -20,8 +20,8 @@ public class BarHandler : MonoBehaviour
     public void HandleBar(float health)
     {
         
-        if (health > .0001f)
-        {
+        
+        
          
             healthBar.SetSize(health);
 
@@ -38,9 +38,15 @@ public class BarHandler : MonoBehaviour
                     healthBar.SetColor(Color.white);
                     changeColor = true;
                 }
+                
 
             }
-        }
+            else 
+            {
+                healthBar.SetColor(Color.red);
+                damageOverlay.setVisibility(false);
+            }
+        
     }
     private void Update()
     {

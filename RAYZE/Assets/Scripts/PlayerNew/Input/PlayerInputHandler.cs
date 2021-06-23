@@ -80,4 +80,12 @@ public class PlayerInputHandler : MonoBehaviour
             JumpInput = false;
         }
     }
+
+    public void exitGame(InputAction.CallbackContext context) 
+    {
+        if (context.started) 
+        {
+            Application.Quit();
+        }
+    }
 }

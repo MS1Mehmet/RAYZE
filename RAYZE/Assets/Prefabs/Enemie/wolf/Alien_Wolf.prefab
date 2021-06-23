@@ -21,7 +21,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4720945693680982030
 Transform:
   m_ObjectHideFlags: 0
@@ -241,6 +241,7 @@ MonoBehaviour:
   startAttack: 1
   canAttack: 1
   isFacingRight: 0
+  WolfHealth: 25
 --- !u!1 &4720945694126800257
 GameObject:
   m_ObjectHideFlags: 0

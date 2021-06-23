@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamagePlayer : MonoBehaviour
+public class DamagePlayer : MonoBehaviour,IDamageable
 {
     Rigidbody2D rb2d;
-    [SerializeField]
+   
+   
     public Player playerScr;
     public int hitDamage;
 
@@ -39,7 +40,7 @@ public class DamagePlayer : MonoBehaviour
 
         if (health <= 0)
         {
-            Destroy(gameObject, 1f);
+            Destroy(gameObject);
             explodeEffect = Instantiate(deathExplosion);
             explodeEffect.name = deathExplosion.name;
             explodeEffect.transform.position = sprite.bounds.center;
@@ -51,7 +52,17 @@ public class DamagePlayer : MonoBehaviour
         }*/
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            playerScr.DamageState.PlayerTakeDamage(hitDamage);
+            playerScr.SetTakenHit(true);
+            Debug.Log(hitDamage);
+        }
+    }
 
+    /*
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -61,4 +72,8 @@ public class DamagePlayer : MonoBehaviour
             Debug.Log(hitDamage);
         }
     }
+
+    */
+
+
 }

@@ -114,7 +114,7 @@ public class EnemyController : MonoBehaviour
 
     public void FreezeEnemy(bool freeze)
     {
-        if(freeze)
+        if (freeze)
         {
             freezeEnemy = true;
             animator.speed = 0;
@@ -126,12 +126,13 @@ public class EnemyController : MonoBehaviour
             freezeEnemy = false;
             animator.speed = 1;
             rb2d.constraints = rb2dConstraints;
-           
+
         }
 
-        
+
     }
 
+    /*
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.CompareTag("Player"))
@@ -142,4 +143,5 @@ public class EnemyController : MonoBehaviour
             player.TakeDamage(this.contactDamage);
         }
     }
+    */
 }

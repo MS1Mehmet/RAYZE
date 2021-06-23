@@ -25,10 +25,10 @@ public class triggerBoss : MonoBehaviour
     {
         if (collision.tag == "Player" )
         {
-            //rb.isKinematic = false;
-            //Debug.Log("WTF TRIGGER");
+           
+            Debug.Log("WTF TRIGGER");
             Boss.Istrigger();
-
+            
         }
       
         if(Boss != null)

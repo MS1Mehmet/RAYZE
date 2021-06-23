@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4774921446451374433}
   - component: {fileID: 1404841840865453786}
   - component: {fileID: 6310932526009319360}
+  - component: {fileID: 171313255402050151}
   m_Layer: 0
   m_Name: stein_normal
   m_TagString: Untagged
@@ -135,3 +136,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyTime: 5
+--- !u!114 &171313255402050151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8816845610064270594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d410b8031a8dad24e87ccd1ff7124be8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerScr: {fileID: 3132606692075104857, guid: 3d4061374243c144894ed753a9258995,
+    type: 3}
+  hitDamage: 100

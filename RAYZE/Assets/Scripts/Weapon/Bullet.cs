@@ -15,6 +15,17 @@ public class Bullet : MonoBehaviour
     {
         Anim.SetBool("Start", true);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
+        if (damageable != null)
+        {
+            damageable.Damage(playerData.weaponDamage);
+        }
+        Destroy(gameObject);
+    }
+    /*
     private void OnTriggerEnter2D(Collider2D collision)
     {
         IDamageable damageable = collision.GetComponent<IDamageable>();
@@ -24,7 +35,7 @@ public class Bullet : MonoBehaviour
         }
         Destroy(gameObject);
     }
-
+    */
     private void BulletAnimationsFinish()
     {
         Anim.SetBool("Start", false);
